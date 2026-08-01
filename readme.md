@@ -1,6 +1,7 @@
 # Kai Yue Foundation Website
 
-A modern, responsive website for the Kai Yue Foundation showcasing their mission to support music, education, and cultural exchange.
+A much more modern, visually aesthetic, engaging, and logically streamlined update for the Kai Yue Foundation website; the original site was hosted by the clunky and antiquated Homestead platform. 
+Coded by Andy Wu (with much assistance from claude code).
 
 ## Pages
 
@@ -12,23 +13,22 @@ A modern, responsive website for the Kai Yue Foundation showcasing their mission
 
 ## Project Structure
 Kai-Yue-Foundation/
-├── index.html              # Home page
-├── events.html             # Events timeline page
-├── gallery.html            # Interactive gallery
-├── partnerships.html       # Partnerships page
-├── contact.html            # Contact & donation form
-├── style.css               # Global styles
-├── script.js               # JavaScript (page loader, gallery, contact form, scroll)
-├── .gitignore              # Git configuration
+├── index.html # Home page
+├── events.html # Events timeline
+├── gallery.html # Interactive gallery
+├── partnerships.html # Partnerships page
+├── contact.html # Contact & donation form
+├── style.css # Global styles
+├── script.js # JavaScript functionality
+├── .gitignore # Git configuration
+├── readme.md # This file
 └── images/
-    ├── hero.jpg            # Homepage hero
-    ├── footer-logo.jpeg    # Footer logo (used for page loader)
-    ├── badge1.png, badge2.png
-    ├── Events Page/        # Event images and hero
-    ├── Gallery Page/       # Gallery images organized by event
-    ├── Partnerships Page/  # Partner logos
-    ├── Contact Us/         # Contact page images + PDF
-    └── [misc assets]
+├── hero.jpg
+├── footer-logo.jpeg
+├── Events Page/
+├── Gallery Page/
+├── Partnerships Page/
+└── Contact Us/
 
 ## Features
 
