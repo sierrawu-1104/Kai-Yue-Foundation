@@ -13,8 +13,6 @@ Coded by Andy Wu (with much assistance from claude code).
 
 ## Project Structure
 
-## Project Structure
-
 ```
 Kai-Yue-Foundation/
 ├── index.html              # Home page
