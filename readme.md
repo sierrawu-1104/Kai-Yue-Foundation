@@ -12,23 +12,28 @@ Coded by Andy Wu (with much assistance from claude code).
 - **Contact** – Contact form and donation application
 
 ## Project Structure
+
+## Project Structure
+
+```
 Kai-Yue-Foundation/
-├── index.html # Home page
-├── events.html # Events timeline
-├── gallery.html # Interactive gallery
-├── partnerships.html # Partnerships page
-├── contact.html # Contact & donation form
-├── style.css # Global styles
-├── script.js # JavaScript functionality
-├── .gitignore # Git configuration
-├── readme.md # This file
+├── index.html              # Home page
+├── events.html             # Events timeline
+├── gallery.html            # Interactive gallery
+├── partnerships.html       # Partnerships page
+├── contact.html            # Contact & donation form
+├── style.css               # Global styles
+├── script.js               # JavaScript functionality
+├── .gitignore              # Git configuration
+├── readme.md               # This file
 └── images/
-├── hero.jpg
-├── footer-logo.jpeg
-├── Events Page/
-├── Gallery Page/
-├── Partnerships Page/
-└── Contact Us/
+    ├── hero.jpg
+    ├── footer-logo.jpeg
+    ├── Events Page/
+    ├── Gallery Page/
+    ├── Partnerships Page/
+    └── Contact Us/
+```
 
 ## Features
 
