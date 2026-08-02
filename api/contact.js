@@ -4,6 +4,7 @@ const nodemailer = require("nodemailer");
    once the site moves off GitHub Pages. */
 const ALLOWED_ORIGINS = [
   "https://sierrawu-1104.github.io",
+  "https://kai-yue-foundation.vercel.app",
   "http://localhost:8934",
 ];
 
