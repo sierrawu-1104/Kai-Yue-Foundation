@@ -785,19 +785,34 @@
   var defaultBtnText = submitBtn ? submitBtn.textContent : "";
   var status = form.querySelector(".contact-form-status");
 
-  if (fileInput) {
-    fileInput.addEventListener("change", function () {
-      var file = fileInput.files[0];
-      fileLabel.textContent = file ? file.name : defaultFileText;
-      fileBox.classList.toggle("has-file", !!file);
-    });
-  }
+  /* The backend runs on a Vercel function, which hard-caps the whole
+     request body at 4.5MB regardless of plan. Leaving headroom below that
+     for the other form fields and multipart overhead. */
+  var MAX_FILE_BYTES = 4 * 1024 * 1024;
 
   function setStatus(text, kind) {
     if (!status) return;
     status.textContent = text;
     status.classList.remove("is-success", "is-error");
     if (kind) status.classList.add("is-" + kind);
+  }
+
+  if (fileInput) {
+    fileInput.addEventListener("change", function () {
+      var file = fileInput.files[0];
+
+      if (file && file.size > MAX_FILE_BYTES) {
+        fileInput.value = "";
+        fileLabel.textContent = defaultFileText;
+        fileBox.classList.remove("has-file");
+        setStatus("That PDF is too large (max 4MB). Please attach a smaller file.", "error");
+        return;
+      }
+
+      fileLabel.textContent = file ? file.name : defaultFileText;
+      fileBox.classList.toggle("has-file", !!file);
+      if (file) setStatus("", null);
+    });
   }
 
   form.addEventListener("submit", function (e) {
