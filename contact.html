@@ -46,7 +46,12 @@
       <div class="contact-cards">
         <div class="contact-form-card">
           <h2 class="contact-heading">Send Us <br>A Message<span class="contact-accent-dot"></span></h2>
-          <form class="contact-form" novalidate>
+          <form class="contact-form" data-endpoint="https://formsubmit.co/ajax/andywu1104@gmail.com" novalidate>
+            <input type="hidden" name="_subject" value="Website inquiry" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="text" name="_honey" class="contact-honeypot" tabindex="-1" autocomplete="off" />
+
             <input type="text" name="name" class="contact-input" placeholder="Your full name*" required />
             <input type="email" name="email" class="contact-input" placeholder="Email address*" required />
             <textarea name="message" class="contact-input contact-textarea" rows="4" placeholder="Tell us about your inquiry or project idea!" required></textarea>
@@ -74,6 +79,7 @@
             </div>
 
             <button type="submit" class="contact-send-btn">SEND TO US!</button>
+            <p class="contact-form-status" role="status" aria-live="polite"></p>
           </form>
         </div>
 
