@@ -51,9 +51,10 @@ Ultimately to be deployed at following domain: kyfoundation.org
 - Google Fonts (Montserrat, Source Code Pro, Junicode, Urbanist)
 - Static site – no build tools or dependencies
 
-## Note
+## Notes
 
 The CONTACT US form currently attempts to use FormSubmit.co to reroute emails; will confirm if this works with PDF upload
+Vercel Account: wubiz1104@gmail.com
 
 ---
 

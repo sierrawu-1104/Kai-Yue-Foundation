@@ -18,14 +18,12 @@ Site-Modernization Techniques:
 8. Duotone or consistent color-grading on photos — running all your photography through a subtle duotone filter (CSS filter or pre-processed) in your peach/dark-green palette would visually unify photos that currently have very different lighting/tones (the hero shot vs. the mission plaque photo vs. the four pillar images).
 
 
-***ADD TRANSLATION TOGGLE
+
 √***add timeline to events page
 √***partnerships page cards should have slowly moving gradient as you hover or click
-***Page load transitions
-***Optimize for mobile viewing
+√***Page load transitions
 √***DETERMINE magnetic or free scrolling for image strips
-***get contact form to actually work
-***scrolling glitching on events page
+
 
 
 √-fix theater title and maybe frame
@@ -42,3 +40,11 @@ GALLERY:
 
 √- Fix odd number of gallery events edge case (should alternate directions, should slide on and off screen in same direction it moves idly)
 √- Maintain persistence, image columns should stay in same order and same photos visible when "All Photos" button clicked again after theater viewing mode
+
+
+FINAL TOUCHES:
+***ADD TRANSLATION TOGGLE
+***Optimize for mobile viewing
+***get contact form to actually work
+***scrolling glitching on events page
+***reroute domain

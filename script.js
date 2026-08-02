@@ -803,10 +803,6 @@
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    var name = form.elements.name.value.trim();
-    var topic = form.elements.topic.value;
-    form.elements._subject.value = "[" + topic + "] Website inquiry from " + (name || "a visitor");
-
     var formData = new FormData(form);
 
     submitBtn.disabled = true;
@@ -820,12 +816,7 @@
     })
       .then(function (res) {
         return res.json().then(function (result) {
-          /* FormSubmit can return HTTP 200 with success:"false" as a
-             *string* (e.g. while a new address is pending activation), so
-             an ok status alone isn't proof of delivery — the body has to
-             be checked too, and not with a plain truthy check since a
-             "false" string is itself truthy. */
-          if (!res.ok || result.success === "false" || result.success === false) {
+          if (!res.ok || !result.success) {
             throw new Error(result.message || "submission failed");
           }
           form.reset();
