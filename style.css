@@ -1632,6 +1632,31 @@ h1 {
   gap: 1rem;
 }
 
+.contact-honeypot {
+  display: none;
+}
+
+.contact-send-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+  transform: none;
+}
+
+.contact-form-status {
+  margin: 0;
+  font-family: "Source Code Pro", monospace;
+  font-size: 0.85rem;
+  min-height: 1.2em;
+}
+
+.contact-form-status.is-success {
+  color: #2e7d4f;
+}
+
+.contact-form-status.is-error {
+  color: #b3423d;
+}
+
 .contact-input {
   width: 100%;
   padding: 0.8rem 1rem;

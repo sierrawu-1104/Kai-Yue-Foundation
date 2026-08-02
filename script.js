@@ -781,6 +781,9 @@
   var fileInput = form.querySelector(".contact-file-input");
   var fileLabel = form.querySelector(".contact-file-label");
   var defaultFileText = fileLabel ? fileLabel.textContent : "";
+  var submitBtn = form.querySelector(".contact-send-btn");
+  var defaultBtnText = submitBtn ? submitBtn.textContent : "";
+  var status = form.querySelector(".contact-form-status");
 
   if (fileInput) {
     fileInput.addEventListener("change", function () {
@@ -790,27 +793,56 @@
     });
   }
 
+  function setStatus(text, kind) {
+    if (!status) return;
+    status.textContent = text;
+    status.classList.remove("is-success", "is-error");
+    if (kind) status.classList.add("is-" + kind);
+  }
+
   form.addEventListener("submit", function (e) {
     e.preventDefault();
+
     var name = form.elements.name.value.trim();
-    var email = form.elements.email.value.trim();
-    var message = form.elements.message.value.trim();
     var topic = form.elements.topic.value;
+    form.elements._subject.value = "[" + topic + "] Website inquiry from " + (name || "a visitor");
 
-    var subject = "[" + topic + "] Website inquiry from " + (name || "a visitor");
-    var body = message + "\n\nName: " + name + "\nEmail: " + email;
+    var formData = new FormData(form);
 
-    /* mailto links cannot carry attachments, so remind the sender to
-       attach the file they selected once their mail client opens. */
-    var file = fileInput && fileInput.files[0];
-    if (file) {
-      body += "\n\n[Please attach your application file: " + file.name + "]";
-    }
+    submitBtn.disabled = true;
+    submitBtn.textContent = "SENDING...";
+    setStatus("", null);
 
-    window.location.href =
-      "mailto:huang@kyfoundation.org?subject=" +
-      encodeURIComponent(subject) +
-      "&body=" +
-      encodeURIComponent(body);
+    fetch(form.dataset.endpoint, {
+      method: "POST",
+      body: formData,
+      headers: { Accept: "application/json" },
+    })
+      .then(function (res) {
+        return res.json().then(function (result) {
+          /* FormSubmit can return HTTP 200 with success:"false" as a
+             *string* (e.g. while a new address is pending activation), so
+             an ok status alone isn't proof of delivery — the body has to
+             be checked too, and not with a plain truthy check since a
+             "false" string is itself truthy. */
+          if (!res.ok || result.success === "false" || result.success === false) {
+            throw new Error(result.message || "submission failed");
+          }
+          form.reset();
+          fileLabel.textContent = defaultFileText;
+          fileBox.classList.remove("has-file");
+          setStatus("Thanks! Your message has been sent.", "success");
+        });
+      })
+      .catch(function () {
+        setStatus(
+          "Something went wrong. Please email us directly at huang@kyfoundation.org.",
+          "error"
+        );
+      })
+      .finally(function () {
+        submitBtn.disabled = false;
+        submitBtn.textContent = defaultBtnText;
+      });
   });
 })();

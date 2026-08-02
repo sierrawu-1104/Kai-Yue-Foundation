@@ -55,7 +55,7 @@ Ultimately to be deployed at following domain: kyfoundation.org
 
 ## Note
 
-The contact form currently uses `mailto:` as a placeholder. To enable actual email submissions, integrate [Formspree](https://formspree.io/) or [Web3Forms](https://web3forms.com/).
+The CONTACT US form currently attempts to use FormSubmit.co to reroute emails; will confirm if this works with PDF upload
 
 ---
 
