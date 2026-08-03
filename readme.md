@@ -53,7 +53,7 @@ Ultimately to be deployed at following domain: kyfoundation.org
 
 ## Contact Form
 
-Submissions are sent via a custom Vercel serverless function (`api/contact.js`), not a third-party form service — no submission caps or storage limits to hit. The function parses the submission (including the optional PDF) entirely in memory, emails it via Gmail SMTP to `andywu1104@gmail.com`, then discards everything — nothing is ever written to disk or a database.
+Submissions are sent via a custom Vercel serverless function (`api/contact.js`), not a third-party form service (like Web3Forms or FormBold) — no submission caps or storage limits to hit. The function parses the submission (including the optional PDF) entirely in memory, emails it via Gmail SMTP to `andywu1104@gmail.com`, then discards everything — nothing is ever written to disk or a database.
 
 **Limits:** PDFs are capped at 4MB client-side, since Vercel hard-limits function request bodies to 4.5MB on every plan.
 
