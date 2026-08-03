@@ -1,4 +1,84 @@
 (function () {
+  var DICT = window.KY_I18N;
+  if (!DICT) return;
+
+  var LANG_KEY = "kyLang";
+  var lang = localStorage.getItem(LANG_KEY) === "zh" ? "zh" : "en";
+
+  function lookup(key) {
+    var parts = key.split(".");
+    var node = DICT;
+    for (var i = 0; i < parts.length; i++) {
+      if (!node) return null;
+      node = node[parts[i]];
+    }
+    return node;
+  }
+
+  /* This runs before every other script in the file, so anything further
+     down that captures "default" text off the DOM at init time (the
+     theater's featured-photo label, the contact form's default button/file
+     text) captures it already in the active language. */
+  function applyLang(next) {
+    lang = next;
+    document.documentElement.setAttribute("lang", lang === "zh" ? "zh-Hant" : "en");
+
+    document.querySelectorAll("[data-i18n]").forEach(function (el) {
+      var entry = lookup(el.getAttribute("data-i18n"));
+      if (entry && entry[lang] != null) el.textContent = entry[lang];
+    });
+    document.querySelectorAll("[data-i18n-html]").forEach(function (el) {
+      var entry = lookup(el.getAttribute("data-i18n-html"));
+      if (entry && entry[lang] != null) el.innerHTML = entry[lang];
+    });
+    document.querySelectorAll("[data-i18n-placeholder]").forEach(function (el) {
+      var entry = lookup(el.getAttribute("data-i18n-placeholder"));
+      if (entry && entry[lang] != null) el.placeholder = entry[lang];
+    });
+    document.querySelectorAll("[data-i18n-aria-label]").forEach(function (el) {
+      var entry = lookup(el.getAttribute("data-i18n-aria-label"));
+      if (entry && entry[lang] != null) el.setAttribute("aria-label", entry[lang]);
+    });
+
+    var toggleBtn = document.querySelector(".lang-toggle");
+    if (toggleBtn) toggleBtn.textContent = lang === "zh" ? "EN" : "中文";
+  }
+
+  applyLang(lang);
+
+  var toggleBtn = document.querySelector(".lang-toggle");
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", function () {
+      var next = lang === "zh" ? "en" : "zh";
+      localStorage.setItem(LANG_KEY, next);
+
+      /* The gallery page's zoom animation is built around one specific
+         glyph's measured metrics (font, DOM structure, and anchor
+         position all change together between languages) - reloading lets
+         it reinitialize cleanly through the same path already proven at
+         first load, rather than live-rebinding a scroll-driven animation
+         mid-flight. */
+      if (document.querySelector(".gallery-mask-anchor")) {
+        location.reload();
+        return;
+      }
+
+      applyLang(next);
+    });
+  }
+
+  window.kyLang = {
+    get: function () {
+      return lang;
+    },
+    t: function (key) {
+      var entry = lookup(key);
+      return entry ? entry[lang] : null;
+    },
+  };
+})();
+
+(function () {
   var loader = document.getElementById("page-loader");
   if (!loader) return;
 
@@ -231,17 +311,46 @@
   var wrap = document.querySelector(".gallery-hero-sticky");
   var maskText = document.querySelector(".gallery-mask-text");
   var word = document.querySelector(".gallery-mask-word");
+  var solid = document.querySelector(".gallery-mask-solid");
   var anchor = document.querySelector(".gallery-mask-anchor");
   var blackBlock = document.querySelector(".gallery-black-block");
   if (!wrap || !maskText || !word || !anchor || !blackBlock) return;
 
   var fadeStart = 0.7;
 
-  /* How far across the L's advance width the zoom aims, 0 = its left edge.
-     The glyph's vertical stem spans roughly 0.10-0.29 of that width (the
-     rest is the trailing letter-spacing gap plus the foot's empty notch),
-     so 0.193 is the stem's own centre. */
-  var ANCHOR_TARGET_FRACTION = 0.193;
+  /* How far across the anchor glyph's advance width the zoom aims, 0 = its
+     left edge. */
+  var ANCHOR_TARGET_FRACTION;
+
+  var isZh = window.kyLang && window.kyLang.get() === "zh";
+
+  if (isZh) {
+    /* "GALLERY" is a wordmark tied to the Latin letter "L"'s stem, so it's
+       deliberately left untranslated elsewhere (see gallery.html). In
+       Chinese mode the wordmark switches to 畫廊 ("art gallery" - huàláng,
+       the standard everyday term), and the zoom now targets 畫's own
+       vertical stroke instead. Urbanist has no CJK glyphs, so this also
+       needs a real CJK font (Noto Sans TC) rather than an unpredictable
+       system fallback, since the anchor fraction below was measured
+       specifically against it. */
+    solid.textContent = "畫廊";
+    solid.style.fontFamily = "'Noto Sans TC', sans-serif";
+    word.innerHTML = '<span class="gallery-mask-anchor">畫</span>廊';
+    word.style.fontFamily = "'Noto Sans TC', sans-serif";
+    anchor = word.querySelector(".gallery-mask-anchor");
+    if (!anchor) return;
+
+    /* 畫's vertical stroke sits almost exactly at the centre of its own
+       advance width (measured live, matching the "L" derivation's
+       methodology: render the actual anchor span, then locate the
+       stroke's pixel position within it). */
+    ANCHOR_TARGET_FRACTION = 0.493;
+  } else {
+    /* The glyph's vertical stem spans roughly 0.10-0.29 of that width (the
+       rest is the trailing letter-spacing gap plus the foot's empty
+       notch), so 0.193 is the stem's own centre. */
+    ANCHOR_TARGET_FRACTION = 0.193;
+  }
 
   var baseFontSize;
   var anchorOffsetEm;
@@ -546,7 +655,9 @@
     if (!target || target.tagName !== "IMG") return;
     var col = target.closest(".gallery-carousel-col");
     if (!col) return;
-    var eventName = col.getAttribute("data-event");
+    var isZh = window.kyLang && window.kyLang.get() === "zh";
+    var eventName =
+      (isZh && col.getAttribute("data-event-zh")) || col.getAttribute("data-event");
     var track = col.querySelector(".gallery-carousel-track");
     if (!eventName || !track) return;
     var imgs = Array.prototype.slice.call(track.children);
@@ -795,6 +906,11 @@
      for the other form fields and multipart overhead. */
   var MAX_FILE_BYTES = 4 * 1024 * 1024;
 
+  function t(key, fallback) {
+    var val = window.kyLang && window.kyLang.t(key);
+    return val != null ? val : fallback;
+  }
+
   function setStatus(text, kind) {
     if (!status) return;
     status.textContent = text;
@@ -810,7 +926,10 @@
         fileInput.value = "";
         fileLabel.textContent = defaultFileText;
         fileBox.classList.remove("has-file");
-        setStatus("That PDF is too large (max 4MB). Please attach a smaller file.", "error");
+        setStatus(
+          t("contact.statusFileTooLarge", "That PDF is too large (max 4MB). Please attach a smaller file."),
+          "error"
+        );
         return;
       }
 
@@ -826,7 +945,7 @@
     var formData = new FormData(form);
 
     submitBtn.disabled = true;
-    submitBtn.textContent = "SENDING...";
+    submitBtn.textContent = t("contact.sendingButton", "SENDING...");
     setStatus("", null);
 
     fetch(form.dataset.endpoint, {
@@ -842,12 +961,15 @@
           form.reset();
           fileLabel.textContent = defaultFileText;
           fileBox.classList.remove("has-file");
-          setStatus("Thanks! Your message has been sent.", "success");
+          setStatus(t("contact.statusSuccess", "Thanks! Your message has been sent."), "success");
         });
       })
       .catch(function () {
         setStatus(
-          "Something went wrong. Please email us directly at huang@kyfoundation.org.",
+          t(
+            "contact.statusError",
+            "Something went wrong. Please email us directly at huang@kyfoundation.org."
+          ),
           "error"
         );
       })

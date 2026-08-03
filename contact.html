@@ -19,10 +19,11 @@
     <nav class="nav">
       <a href="index.html" class="site-title">KAI YUE FOUNDATION</a>
       <div class="nav-links">
-        <a href="events.html">Events</a>
-        <a href="partnerships.html">Partnerships</a>
-        <a href="gallery.html">Gallery</a>
-        <a href="contact.html" class="btn btn-contact">Contact Us</a>
+        <button type="button" class="lang-toggle" aria-label="Switch language">中文</button>
+        <a href="events.html" data-i18n="nav.events">Events</a>
+        <a href="partnerships.html" data-i18n="nav.partnerships">Partnerships</a>
+        <a href="gallery.html" data-i18n="nav.gallery">Gallery</a>
+        <a href="contact.html" class="btn btn-contact" data-i18n="nav.contact">Contact Us</a>
       </div>
     </nav>
   </header>
@@ -31,8 +32,8 @@
     <section class="events-hero">
       <img src="images/Contact%20Us/contactus-hero-image.JPG" alt="" class="events-hero-image" />
       <div class="events-hero-content">
-        <h1 class="events-hero-title">CONTACT US</h1>
-        <p class="page-subtitle">
+        <h1 class="events-hero-title" data-i18n="contact.heroTitle">CONTACT US</h1>
+        <p class="page-subtitle" data-i18n-html="contact.heroSubtitle">
           We'd love to hear from you — reach out with questions, <br>
           donation inquiries, or partnership ideas.
         </p>
@@ -45,44 +46,44 @@
 
       <div class="contact-cards">
         <div class="contact-form-card">
-          <h2 class="contact-heading">Send Us <br>A Message<span class="contact-accent-dot"></span></h2>
+          <h2 class="contact-heading" data-i18n-html="contact.sendUsMessage">Send Us <br>A Message<span class="contact-accent-dot"></span></h2>
           <form class="contact-form" data-endpoint="https://kai-yue-foundation.vercel.app/api/contact" novalidate>
             <input type="text" name="_honey" class="contact-honeypot" tabindex="-1" autocomplete="off" />
 
-            <input type="text" name="name" class="contact-input" placeholder="Your full name*" required />
-            <input type="email" name="email" class="contact-input" placeholder="Email address*" required />
-            <textarea name="message" class="contact-input contact-textarea" rows="4" placeholder="Tell us about your inquiry or project idea!" required></textarea>
+            <input type="text" name="name" class="contact-input" data-i18n-placeholder="contact.namePlaceholder" placeholder="Your full name*" required />
+            <input type="email" name="email" class="contact-input" data-i18n-placeholder="contact.emailPlaceholder" placeholder="Email address*" required />
+            <textarea name="message" class="contact-input contact-textarea" rows="4" data-i18n-placeholder="contact.messagePlaceholder" placeholder="Tell us about your inquiry or project idea!" required></textarea>
 
             <label class="contact-file">
               <input type="file" name="application" accept="application/pdf" class="contact-file-input" />
               <span class="contact-file-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
               </span>
-              <span class="contact-file-label">Attach Donation Application PDF (optional)</span>
+              <span class="contact-file-label" data-i18n="contact.fileLabel">Attach Donation Application PDF (optional)</span>
             </label>
 
             <div class="contact-topic-row">
-              <span class="contact-topic-label">I'm reaching<br>out about</span>
+              <span class="contact-topic-label" data-i18n-html="contact.reachingOutAbout">I'm reaching<br>out about</span>
               <label class="contact-radio">
                 <input type="radio" name="topic" value="General Inquiry" checked />
                 <span class="contact-radio-dot"></span>
-                General Inquiry
+                <span data-i18n="contact.generalInquiry">General Inquiry</span>
               </label>
               <label class="contact-radio">
                 <input type="radio" name="topic" value="Donation Application" />
                 <span class="contact-radio-dot"></span>
-                Donation Application
+                <span data-i18n="contact.donationApplication">Donation Application</span>
               </label>
             </div>
 
-            <button type="submit" class="contact-send-btn">SEND TO US!</button>
+            <button type="submit" class="contact-send-btn" data-i18n="contact.sendButton">SEND TO US!</button>
             <p class="contact-form-status" role="status" aria-live="polite"></p>
           </form>
         </div>
 
         <aside class="contact-info-card">
-          <h2 class="contact-heading contact-heading-light">Contact <br>Info<span class="contact-accent-dot"></span></h2>
-          <p class="contact-info-intro">
+          <h2 class="contact-heading contact-heading-light" data-i18n-html="contact.contactInfoHeading">Contact <br>Info<span class="contact-accent-dot"></span></h2>
+          <p class="contact-info-intro" data-i18n="contact.infoIntro">
             The Kai Yue Foundation supports music, education, and
             cultural exchange throughout our community.
           </p>
@@ -92,8 +93,8 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             </span>
             <div>
-              <h3 class="contact-info-title">Plainsboro, NJ</h3>
-              <p class="contact-info-text">
+              <h3 class="contact-info-title" data-i18n="contact.addressTitle">Plainsboro, NJ</h3>
+              <p class="contact-info-text" data-i18n-html="contact.addressText">
                 Chair, Donations Committee<br>
                 Kai Yue Foundation Corporation<br>
                 101 Morgan Lane, Suite 202<br>
@@ -124,7 +125,7 @@
             </div>
           </div>
 
-          <p class="contact-info-note">
+          <p class="contact-info-note" data-i18n="contact.infoNote">
             Donation requests are received in written physical OR PDF format and are by
             invitation only.
           </p>
@@ -134,20 +135,20 @@
 
     <section class="eligibility-section">
       <div class="eligibility-inner">
-        <h2 class="eligibility-heading">Eligibility<span class="contact-accent-dot"></span></h2>
+        <h2 class="eligibility-heading"><span data-i18n="contact.eligibilityHeading">Eligibility</span><span class="contact-accent-dot"></span></h2>
         <ul class="eligibility-list">
-          <li>Application for donation is by invitation only. KAI YUE FOUNDATION does not accept non-solicited applications.</li>
-          <li>Typical donation amounts are from $500 to $20,000.</li>
-          <li>Applicant must have a current and active registered charitable number (Canada) or 501(c)3 status (US).</li>
-          <li>Funds must be utilized in the states where organizations provide services.</li>
-          <li>Organizations must be applying for programs and services that fall in line with one of the foundation's areas of focus.</li>
-          <li>Organizations must have strong fiscal management based on information gathered from the most recent copy of their financial statements.</li>
-          <li>Organizations must have an operating Board of Directors and be able to illustrate the strength of their governance practices.</li>
-          <li>Organizations must provide an annual progress report and feedback on how funds are used and the effectiveness of the program.</li>
-          <li>Presentations and site visits may be required.</li>
+          <li data-i18n="contact.eligibility1">Application for donation is by invitation only. KAI YUE FOUNDATION does not accept non-solicited applications.</li>
+          <li data-i18n="contact.eligibility2">Typical donation amounts are from $500 to $20,000.</li>
+          <li data-i18n="contact.eligibility3">Applicant must have a current and active registered charitable number (Canada) or 501(c)3 status (US).</li>
+          <li data-i18n="contact.eligibility4">Funds must be utilized in the states where organizations provide services.</li>
+          <li data-i18n="contact.eligibility5">Organizations must be applying for programs and services that fall in line with one of the foundation's areas of focus.</li>
+          <li data-i18n="contact.eligibility6">Organizations must have strong fiscal management based on information gathered from the most recent copy of their financial statements.</li>
+          <li data-i18n="contact.eligibility7">Organizations must have an operating Board of Directors and be able to illustrate the strength of their governance practices.</li>
+          <li data-i18n="contact.eligibility8">Organizations must provide an annual progress report and feedback on how funds are used and the effectiveness of the program.</li>
+          <li data-i18n="contact.eligibility9">Presentations and site visits may be required.</li>
         </ul>
 
-        <h2 class="eligibility-heading">Donation Application<span class="contact-accent-dot"></span></h2>
+        <h2 class="eligibility-heading"><span data-i18n="contact.donationAppHeading">Donation Application</span><span class="contact-accent-dot"></span></h2>
         <div class="application-embed">
           <div class="application-window">
             <div class="application-window-bar">
@@ -156,9 +157,14 @@
               <span class="application-dot"></span>
               <span class="application-window-title">KYF_donation_application.pdf</span>
             </div>
-            <iframe src="images/Contact%20Us/KYF_donation_application.pdf#toolbar=0&navpanes=0" title="KYF Donation Application" class="application-frame" sandbox="allow-same-origin"></iframe>
+            <!-- Deliberately not sandboxed: this is the site's own trusted
+                 same-origin PDF, and Chrome blocks sandboxed iframes from
+                 triggering downloads unless "allow-downloads" is present -
+                 which is exactly what caused this to be blocked even with
+                 no ad blocker involved. -->
+            <iframe src="images/Contact%20Us/KYF_donation_application.pdf#toolbar=0&navpanes=0" title="KYF Donation Application" class="application-frame"></iframe>
           </div>
-          <a class="application-download" href="images/Contact%20Us/KYF_donation_application.pdf" download>Download Application</a>
+          <a class="application-download" href="images/Contact%20Us/KYF_donation_application.pdf" download data-i18n="contact.downloadApplication">Download Application</a>
         </div>
       </div>
     </section>
@@ -166,10 +172,10 @@
 
   <footer class="site-footer">
     <nav class="footer-nav">
-      <a href="events.html">Events</a>
-      <a href="partnerships.html">Partnerships</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="contact.html">Contact Us</a>
+      <a href="events.html" data-i18n="nav.events">Events</a>
+      <a href="partnerships.html" data-i18n="nav.partnerships">Partnerships</a>
+      <a href="gallery.html" data-i18n="nav.gallery">Gallery</a>
+      <a href="contact.html" data-i18n="nav.contact">Contact Us</a>
     </nav>
 
     <div class="footer-badges">
@@ -178,10 +184,11 @@
       <img src="images/badge2.png" alt="" class="footer-badge" />
     </div>
 
-    <p class="footer-copyright">&copy; Kai Yue Foundation. All rights reserved.</p>
+    <p class="footer-copyright" data-i18n="footer.copyright">&copy; Kai Yue Foundation. All rights reserved.</p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
+  <script src="translations.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

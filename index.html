@@ -19,19 +19,20 @@
     <nav class="nav">
       <a href="index.html" class="site-title">KAI YUE FOUNDATION</a>
       <div class="nav-links">
-        <a href="events.html">Events</a>
-        <a href="partnerships.html">Partnerships</a>
-        <a href="gallery.html">Gallery</a>
-        <a href="contact.html" class="btn btn-contact">Contact Us</a>
+        <button type="button" class="lang-toggle" aria-label="Switch language">中文</button>
+        <a href="events.html" data-i18n="nav.events">Events</a>
+        <a href="partnerships.html" data-i18n="nav.partnerships">Partnerships</a>
+        <a href="gallery.html" data-i18n="nav.gallery">Gallery</a>
+        <a href="contact.html" class="btn btn-contact" data-i18n="nav.contact">Contact Us</a>
       </div>
     </nav>
     <div class="hero-sticky">
       <div class="hero-pin">
         <img src="images/hero.jpg" alt="" class="hero-image" />
         <h1 class="hero-heading">
-          <span class="hero-line">Advancing Education.</span>
-          <span class="hero-line">Elevating Arts.</span>
-          <span class="hero-line">Enriching Community.</span>
+          <span class="hero-line" data-i18n="index.heroLine1">Advancing Education.</span>
+          <span class="hero-line" data-i18n="index.heroLine2">Elevating Arts.</span>
+          <span class="hero-line" data-i18n="index.heroLine3">Enriching Community.</span>
         </h1>
       </div>
     </div>
@@ -42,8 +43,8 @@
       <div class="mission">
         <img src="images/mission.jpeg" alt="" class="mission-image" />
         <div class="mission-content">
-          <p class="eyebrow">OUR MISSION</p>
-          <p class="mission-text">
+          <p class="eyebrow" data-i18n="index.missionEyebrow">OUR MISSION</p>
+          <p class="mission-text" data-i18n="index.missionText">
             The KAI YUE FOUNDATION Corporation is a non-profit private foundation
             (501 (c) 3 tax exempt) established by the Jim Huang Family. The foundation is
             dedicated to advancing charitable and educational initiatives that strengthen
@@ -52,19 +53,19 @@
             communities and promote culture developments.
           </p>
           <span class="btn-wrap">
-            <a href="events.html" class="btn btn-secondary">See Our Events</a>
+            <a href="events.html" class="btn btn-secondary" data-i18n="index.missionCta">See Our Events</a>
           </span>
         </div>
       </div>
 
       <div class="pillars-wrap">
-        <h2 class="pillars-heading">Ways We Give Back</h2>
+        <h2 class="pillars-heading" data-i18n="index.pillarsHeading">Ways We Give Back</h2>
         <div class="pillars-grid">
           <div class="pillar-outer">
             <div class="pillar">
               <img src="images/china.png" alt="Chinese Communities" />
-              <p class="pillar-label">Chinese Communities</p>
-              <p class="pillar-text">
+              <p class="pillar-label" data-i18n="index.pillarChineseLabel">Chinese Communities</p>
+              <p class="pillar-text" data-i18n="index.pillarChineseText">
                 Strengthen and celebrate the Chinese community by supporting
                 education programs, cultural concerts and events, and charitable
                 organizations with shared missions.
@@ -74,8 +75,8 @@
           <div class="pillar-outer">
             <div class="pillar">
               <img src="images/music.png" alt="Performing Arts" />
-              <p class="pillar-label">Performing Arts</p>
-              <p class="pillar-text">
+              <p class="pillar-label" data-i18n="index.pillarArtsLabel">Performing Arts</p>
+              <p class="pillar-text" data-i18n="index.pillarArtsText">
                 Support and elevate the arts through meaningful sponsorships in
                 cultural programming, including music festivals, live
                 performances, orchestras, chamber music, and other artistic
@@ -86,8 +87,8 @@
           <div class="pillar-outer">
             <div class="pillar">
               <img src="images/education.png" alt="Education" />
-              <p class="pillar-label">Education</p>
-              <p class="pillar-text">
+              <p class="pillar-label" data-i18n="index.pillarEducationLabel">Education</p>
+              <p class="pillar-text" data-i18n="index.pillarEducationText">
                 Provide scholarships to students with demonstrated financial need
                 who have been accepted to or are currently enrolled in accredited
                 educational programs, helping expand access to education and
@@ -98,8 +99,8 @@
           <div class="pillar-outer">
             <div class="pillar">
               <img src="images/physics.png" alt="Physics" />
-              <p class="pillar-label">Physics</p>
-              <p class="pillar-text">
+              <p class="pillar-label" data-i18n="index.pillarPhysicsLabel">Physics</p>
+              <p class="pillar-text" data-i18n="index.pillarPhysicsText">
                 Provide grants and awards to qualified institutions and
                 individuals to support and advance the physical sciences, with
                 fellowship opportunities available in areas such as research,
@@ -114,10 +115,10 @@
 
   <footer class="site-footer">
     <nav class="footer-nav">
-      <a href="events.html">Events</a>
-      <a href="partnerships.html">Partnerships</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="contact.html">Contact Us</a>
+      <a href="events.html" data-i18n="nav.events">Events</a>
+      <a href="partnerships.html" data-i18n="nav.partnerships">Partnerships</a>
+      <a href="gallery.html" data-i18n="nav.gallery">Gallery</a>
+      <a href="contact.html" data-i18n="nav.contact">Contact Us</a>
     </nav>
 
     <div class="footer-badges">
@@ -126,10 +127,11 @@
       <img src="images/badge2.png" alt="" class="footer-badge" />
     </div>
 
-    <p class="footer-copyright">&copy; Kai Yue Foundation. All rights reserved.</p>
+    <p class="footer-copyright" data-i18n="footer.copyright">&copy; Kai Yue Foundation. All rights reserved.</p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
+  <script src="translations.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

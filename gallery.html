@@ -17,6 +17,11 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap" />
+  <!-- Urbanist (used for the GALLERY wordmark) has no CJK glyphs. The zoom
+       animation's anchor targeting depends on precise glyph metrics, so the
+       Chinese wordmark needs a real CJK font rather than an unpredictable
+       system fallback. -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@600&display=swap" />
   <link rel="stylesheet" href="style.css" />
   <noscript><style>.page-loader { display: none; }</style></noscript>
 </head>
@@ -30,10 +35,11 @@
     <nav class="nav">
       <a href="index.html" class="site-title">KAI YUE FOUNDATION</a>
       <div class="nav-links">
-        <a href="events.html">Events</a>
-        <a href="partnerships.html">Partnerships</a>
-        <a href="gallery.html">Gallery</a>
-        <a href="contact.html" class="btn btn-contact">Contact Us</a>
+        <button type="button" class="lang-toggle" aria-label="Switch language">中文</button>
+        <a href="events.html" data-i18n="nav.events">Events</a>
+        <a href="partnerships.html" data-i18n="nav.partnerships">Partnerships</a>
+        <a href="gallery.html" data-i18n="nav.gallery">Gallery</a>
+        <a href="contact.html" class="btn btn-contact" data-i18n="nav.contact">Contact Us</a>
       </div>
     </nav>
 
@@ -41,6 +47,9 @@
       <div class="gallery-hero-pin">
         <img src="images/Gallery%20Page/gallery-hero-image.jpg" alt="" class="gallery-hero-image" />
         <div class="gallery-black-block"></div>
+        <!-- Intentionally not translated: the zoom animation targets the
+             stem of the Latin letter "L" specifically, so this wordmark
+             stays "GALLERY" in both languages. -->
         <h1 class="gallery-mask-text">
           <span class="gallery-mask-solid">GALLERY</span>
           <span class="gallery-mask-word">GAL<span class="gallery-mask-anchor">L</span>ERY</span>
@@ -48,9 +57,9 @@
 
         <div class="gallery-theater">
           <div class="gallery-theater-row">
-            <button class="gallery-theater-arrow gallery-theater-arrow-left" type="button" aria-label="Previous photo">&#8249;</button>
+            <button class="gallery-theater-arrow gallery-theater-arrow-left" type="button" data-i18n-aria-label="gallery.prevPhoto" aria-label="Previous photo">&#8249;</button>
             <div class="gallery-theater-stage">
-              <p class="gallery-theater-label">FEATURED: Lea Salonga</p>
+              <p class="gallery-theater-label" data-i18n="gallery.featuredLabel">FEATURED: Lea Salonga</p>
               <div class="gallery-theater-frame">
                 <img src="images/Gallery%20Page/Featured%20Images/salonga%201.jpeg" alt="" class="gallery-theater-photo active" />
                 <img src="images/Gallery%20Page/Featured%20Images/salonga%202.jpeg" alt="" class="gallery-theater-photo" />
@@ -60,12 +69,12 @@
                 <img src="images/Gallery%20Page/Featured%20Images/salonga%206.jpeg" alt="" class="gallery-theater-photo" />
               </div>
             </div>
-            <button class="gallery-theater-arrow gallery-theater-arrow-right" type="button" aria-label="Next photo">&#8250;</button>
+            <button class="gallery-theater-arrow gallery-theater-arrow-right" type="button" data-i18n-aria-label="gallery.nextPhoto" aria-label="Next photo">&#8250;</button>
           </div>
         </div>
 
         <div class="gallery-carousel" data-lenis-prevent>
-          <div class="gallery-carousel-col" data-event="Journey of Love Gala">
+          <div class="gallery-carousel-col" data-event="Journey of Love Gala" data-event-zh="愛的旅程晚會">
             <div class="gallery-carousel-track">
               <img src="images/Gallery%20Page/Journey%20of%20Love%20Gala/love_2.jpeg" alt="" loading="lazy" />
               <img src="images/Gallery%20Page/Journey%20of%20Love%20Gala/love_3.jpeg" alt="" loading="lazy" />
@@ -78,7 +87,7 @@
               <img src="images/Gallery%20Page/Journey%20of%20Love%20Gala/love_22.jpeg" alt="" loading="lazy" />
             </div>
           </div>
-          <div class="gallery-carousel-col" data-event="McCarter Theatre Gala">
+          <div class="gallery-carousel-col" data-event="McCarter Theatre Gala" data-event-zh="麥卡特劇院晚宴">
             <div class="gallery-carousel-track">
               <img src="images/Gallery%20Page/McCarter%20Theatre%20Gala/lang_1.jpeg" alt="" loading="lazy" />
               <img src="images/Gallery%20Page/McCarter%20Theatre%20Gala/lang_2.jpeg" alt="" loading="lazy" />
@@ -90,7 +99,7 @@
               <img src="images/Gallery%20Page/McCarter%20Theatre%20Gala/lang_9.jpeg" alt="" loading="lazy" />
             </div>
           </div>
-          <div class="gallery-carousel-col" data-event="Lu Siqing Violin Solo Concert">
+          <div class="gallery-carousel-col" data-event="Lu Siqing Violin Solo Concert" data-event-zh="呂思清小提琴獨奏音樂會">
             <div class="gallery-carousel-track">
               <img src="images/Gallery%20Page/Lu%20Siqing%20Violin%20Solo%20Concert/lv_1.jpeg" alt="" loading="lazy" />
               <img src="images/Gallery%20Page/Lu%20Siqing%20Violin%20Solo%20Concert/lv_2.jpeg" alt="" loading="lazy" />
@@ -103,7 +112,7 @@
               <img src="images/Gallery%20Page/Lu%20Siqing%20Violin%20Solo%20Concert/lv_9.jpeg" alt="" loading="lazy" />
             </div>
           </div>
-          <div class="gallery-carousel-col" data-event="Blending of East and West Concert">
+          <div class="gallery-carousel-col" data-event="Blending of East and West Concert" data-event-zh="東西交融音樂會">
             <div class="gallery-carousel-track">
               <img src="images/Gallery%20Page/Blending%20of%20East%20and%20West%20Concert/A%20true%20Blending%20of%20the%20East%20and%20West%20-%201.jpeg" alt="" loading="lazy" />
               <img src="images/Gallery%20Page/Blending%20of%20East%20and%20West%20Concert/A%20very%20happy%20Ending%20to%20the%20concert%20-%202.jpeg" alt="" loading="lazy" />
@@ -116,7 +125,7 @@
               <img src="images/Gallery%20Page/Blending%20of%20East%20and%20West%20Concert/7190FD79-F52E-4B05-A264-200B9CD442FA.jpg" alt="" loading="lazy" />
             </div>
           </div>
-          <div class="gallery-carousel-col" data-event="Li Chuanyun Violin Concerto Concert">
+          <div class="gallery-carousel-col" data-event="Li Chuanyun Violin Concerto Concert" data-event-zh="李傳韻小提琴協奏音樂會">
             <div class="gallery-carousel-track">
               <img src="images/Gallery%20Page/Li%20Chuanyun%20Violin%20Concerto%20Concert/li_chuanyun_2.jpeg" alt="" loading="lazy" />
               <img src="images/Gallery%20Page/Li%20Chuanyun%20Violin%20Concerto%20Concert/li_chuanyun_3.jpeg" alt="" loading="lazy" />
@@ -126,7 +135,7 @@
               <img src="images/Gallery%20Page/Li%20Chuanyun%20Violin%20Concerto%20Concert/20140323_231830000_iOS.jpeg" alt="" loading="lazy" />
             </div>
           </div>
-          <div class="gallery-carousel-col" data-event="Plainsboro Chinese New Year Gala">
+          <div class="gallery-carousel-col" data-event="Plainsboro Chinese New Year Gala" data-event-zh="普蘭斯堡中文學校春節晚會">
             <div class="gallery-carousel-track">
               <img src="images/Gallery%20Page/Plainsboro%20Chinese%20New%20Year%20Gala/20130211_000211000_iOS.jpeg" alt="" loading="lazy" />
               <img src="images/Gallery%20Page/Plainsboro%20Chinese%20New%20Year%20Gala/20130214_131307000_iOS.jpeg" alt="" loading="lazy" />
@@ -142,7 +151,7 @@
               <img src="images/Gallery%20Page/Plainsboro%20Chinese%20New%20Year%20Gala/20140214_125941000_iOS.jpeg" alt="" loading="lazy" />
             </div>
           </div>
-          <div class="gallery-carousel-col" data-event="Lea Salonga">
+          <div class="gallery-carousel-col" data-event="Lea Salonga" data-event-zh="Lea Salonga">
             <div class="gallery-carousel-track">
               <img src="images/Gallery%20Page/Lea%20Salonga/salonga%201.jpeg" alt="" loading="lazy" />
               <img src="images/Gallery%20Page/Lea%20Salonga/salonga%202.jpeg" alt="" loading="lazy" />
@@ -155,18 +164,18 @@
         </div>
 
         <div class="gallery-controls">
-          <button class="gallery-nav-arrow gallery-nav-left" type="button" aria-label="Previous column">
+          <button class="gallery-nav-arrow gallery-nav-left" type="button" data-i18n-aria-label="gallery.prevColumn" aria-label="Previous column">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="15 18 9 12 15 6"></polyline>
             </svg>
           </button>
 
           <button class="gallery-view-toggle" type="button">
-            <span class="gallery-view-toggle-label gallery-view-toggle-all">See All Photos</span>
-            <span class="gallery-view-toggle-label gallery-view-toggle-featured">See Featured Photos</span>
+            <span class="gallery-view-toggle-label gallery-view-toggle-all" data-i18n="gallery.viewToggleAll">See All Photos</span>
+            <span class="gallery-view-toggle-label gallery-view-toggle-featured" data-i18n="gallery.viewToggleFeatured">See Featured Photos</span>
           </button>
 
-          <button class="gallery-nav-arrow gallery-nav-right" type="button" aria-label="Next column">
+          <button class="gallery-nav-arrow gallery-nav-right" type="button" data-i18n-aria-label="gallery.nextColumn" aria-label="Next column">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="9 18 15 12 9 6"></polyline>
             </svg>
@@ -178,16 +187,16 @@
 
   <main>
     <section class="gallery-placeholder">
-      <p class="gallery-placeholder-text">More photos coming soon.</p>
+      <p class="gallery-placeholder-text" data-i18n="gallery.placeholderText">More photos coming soon.</p>
     </section>
   </main>
 
   <footer class="site-footer">
     <nav class="footer-nav">
-      <a href="events.html">Events</a>
-      <a href="partnerships.html">Partnerships</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="contact.html">Contact Us</a>
+      <a href="events.html" data-i18n="nav.events">Events</a>
+      <a href="partnerships.html" data-i18n="nav.partnerships">Partnerships</a>
+      <a href="gallery.html" data-i18n="nav.gallery">Gallery</a>
+      <a href="contact.html" data-i18n="nav.contact">Contact Us</a>
     </nav>
 
     <div class="footer-badges">
@@ -196,10 +205,11 @@
       <img src="images/badge2.png" alt="" class="footer-badge" />
     </div>
 
-    <p class="footer-copyright">&copy; Kai Yue Foundation. All rights reserved.</p>
+    <p class="footer-copyright" data-i18n="footer.copyright">&copy; Kai Yue Foundation. All rights reserved.</p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
+  <script src="translations.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

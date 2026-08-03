@@ -233,6 +233,31 @@ h1 {
   font-weight: 400;
 }
 
+.lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3.4rem;
+  padding: 0.4rem 0.85rem;
+  border: 1.5px solid #ffffff;
+  border-radius: 999px;
+  background: transparent;
+  color: #ffffff;
+  font-family: "Source Code Pro", monospace;
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.lang-toggle:hover {
+  background: #ffffff;
+  color: #000000;
+  transform: scale(1.08);
+}
+
 .hero-heading {
   position: relative;
   z-index: 2;

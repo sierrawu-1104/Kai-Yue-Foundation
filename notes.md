@@ -46,5 +46,6 @@ FINAL TOUCHES:
 ***ADD TRANSLATION TOGGLE
 ***Optimize for mobile viewing
 √***get contact form to actually work
-***scrolling glitching on events page
+√***scrolling glitching on events page
+***fix embedded pdf being blocked by browser
 ***reroute domain
