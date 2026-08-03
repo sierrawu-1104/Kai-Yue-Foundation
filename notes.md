@@ -43,9 +43,10 @@ GALLERY:
 
 
 FINAL TOUCHES:
-***ADD TRANSLATION TOGGLE
-***Optimize for mobile viewing
+√***ADD TRANSLATION TOGGLE
 √***get contact form to actually work
 √***scrolling glitching on events page
-***fix embedded pdf being blocked by browser
+√***fix embedded pdf being blocked by browser
+
+***Optimize for mobile viewing
 ***reroute domain

@@ -258,6 +258,83 @@ h1 {
   transform: scale(1.08);
 }
 
+.nav-hamburger {
+  display: none;
+}
+
+/* Mobile nav: collapse the inline links row into a hamburger that reveals
+   a full-screen fade-in overlay. Scoped entirely to this breakpoint so
+   desktop's inline nav is untouched. */
+@media (max-width: 800px) {
+  .nav-hamburger {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    z-index: 70;
+    position: relative;
+  }
+
+  .nav-hamburger span {
+    display: block;
+    width: 26px;
+    height: 2px;
+    background: #ffffff;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .nav-hamburger.is-open span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .nav-hamburger.is-open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-hamburger.is-open span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  .nav-links {
+    position: fixed;
+    inset: 0;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2.5rem;
+    background: #000000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    z-index: 60;
+  }
+
+  .nav-links.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-links a,
+  .nav-links .lang-toggle {
+    font-size: 1.8rem;
+  }
+
+  .nav-links a.btn-contact {
+    font-size: 1.6rem;
+  }
+
+  html.nav-open,
+  html.nav-open body {
+    overflow: hidden;
+  }
+}
+
 .hero-heading {
   position: relative;
   z-index: 2;
@@ -472,12 +549,6 @@ h1 {
 @media (max-width: 700px) {
   .pillars-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 420px) {
-  .pillars-grid {
-    grid-template-columns: 1fr;
   }
 }
 

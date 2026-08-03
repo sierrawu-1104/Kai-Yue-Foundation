@@ -1,4 +1,29 @@
 (function () {
+  var hamburger = document.querySelector(".nav-hamburger");
+  var navLinks = document.querySelector(".nav-links");
+  if (!hamburger || !navLinks) return;
+
+  function setOpen(open) {
+    hamburger.classList.toggle("is-open", open);
+    navLinks.classList.toggle("is-open", open);
+    hamburger.setAttribute("aria-expanded", open ? "true" : "false");
+    document.documentElement.classList.toggle("nav-open", open);
+  }
+
+  hamburger.addEventListener("click", function () {
+    setOpen(!navLinks.classList.contains("is-open"));
+  });
+
+  /* Only real navigation closes the menu - the language toggle stays open
+     so a visitor can switch language and then still pick a page. */
+  navLinks.querySelectorAll("a").forEach(function (link) {
+    link.addEventListener("click", function () {
+      setOpen(false);
+    });
+  });
+})();
+
+(function () {
   var DICT = window.KY_I18N;
   if (!DICT) return;
 
