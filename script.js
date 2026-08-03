@@ -32,14 +32,19 @@
     }, wait);
   }
 
-  if (document.readyState === "complete") {
-    hide();
+  /* Waiting for window's "load" event (everything fully loaded, including
+     every off-screen image and each embedded YouTube iframe's own player
+     assets) held scroll locked for seconds on image/video-heavy pages like
+     Events. DOMContentLoaded — parsing done, independent of media — is all
+     the loader actually needs to cover. */
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", hide);
   } else {
-    window.addEventListener("load", hide);
+    hide();
   }
 
-  /* Failsafe in case a stalled resource keeps the load event from ever
-     firing — the loader must not be able to trap the page indefinitely. */
+  /* Failsafe in case something upstream keeps DOMContentLoaded from firing
+     — the loader must not be able to trap the page indefinitely. */
   setTimeout(hide, 6000);
 })();
 

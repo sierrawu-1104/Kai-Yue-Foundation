@@ -45,6 +45,6 @@ GALLERY:
 FINAL TOUCHES:
 ***ADD TRANSLATION TOGGLE
 ***Optimize for mobile viewing
-***get contact form to actually work
+√***get contact form to actually work
 ***scrolling glitching on events page
 ***reroute domain
