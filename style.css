@@ -725,9 +725,10 @@ h1 {
 
 .event,
 .event-reverse {
+  --event-vpad: clamp(3rem, 7vw, 5rem);
   position: relative;
   width: 100%;
-  padding: clamp(3rem, 7vw, 5rem) clamp(1.25rem, 4.19vw, 1.75rem);
+  padding: var(--event-vpad) clamp(1.25rem, 4.19vw, 1.75rem);
   background: linear-gradient(to right, #000000 0%, #000000 10%, #ffae41 70%, #ffae41 100%);
 }
 
@@ -838,6 +839,10 @@ h1 {
 }
 
 @media (max-width: 800px) {
+  .timeline-label {
+    display: none;
+  }
+
   .timeline-dot {
     display: none;
   }
@@ -849,17 +854,48 @@ h1 {
     display: none;
   }
 
+  /* A bit more breathing room below each event's content than desktop's
+     padding gives, and - since the fade zone below tracks this same
+     value - a longer, more gradual blend into the next event. Only the
+     bottom is widened; top padding is untouched. */
+  .event,
+  .event-reverse {
+    --event-vpad-bottom: clamp(7rem, 16vw, 10rem);
+    padding-bottom: var(--event-vpad-bottom);
+  }
+
+  /* Each event stays solid all the way through its own content (image +
+     text + video), only starting to blend into the next alternating color
+     once it reaches the bottom padding - the same padding that separates
+     it from the next event - so the fade never crosses over live content
+     and still completes exactly at the boundary, matching the next
+     event's starting color. */
   .event {
-    background: #ff7c00;
+    background: linear-gradient(to bottom, #000000 0%, #000000 calc(100% - var(--event-vpad-bottom)), #ffae41 100%);
   }
 
   .event-reverse {
-    background: #000000;
+    background: linear-gradient(to bottom, #ffae41 0%, #ffae41 calc(100% - var(--event-vpad-bottom)), #000000 100%);
+  }
+
+  /* Text sits on the solid portion of each gradient (image on top, text
+     below, within the first 80%), so the desktop black/white mapping -
+     built for its left/right layout - needs to flip here: .event is now
+     predominantly black, .event-reverse predominantly orange. */
+  .event-title,
+  .event-text {
+    color: #ffffff;
+  }
+
+  .event-reverse .event-title,
+  .event-reverse .event-text {
+    color: #000000;
   }
 
   .event-inner,
   .event-reverse .event-inner {
     grid-template-columns: 1fr;
+    gap: 0;
     margin-left: auto;
     margin-right: auto;
   }
@@ -867,6 +903,18 @@ h1 {
   .event-reverse .event-image,
   .event-reverse .event-content {
     order: initial;
+  }
+
+  /* Desktop's fixed height (clamp(...85vh)) exists for the side-by-side
+     layout, but on a single mobile column it forces every image into the
+     same tall box regardless of its own aspect ratio - object-fit: contain
+     then letterboxes non-tall photos, leaving blank space between the
+     visible photo and the title below it. Sizing to the image's own
+     aspect ratio removes that dead space and lets each card's height (and
+     its background, which already tracks the card's own height) follow
+     its actual content instead of a fixed reservation. */
+  .event-image {
+    height: auto;
   }
 }
 
@@ -2100,6 +2148,40 @@ h1 {
 }
 
 @media (max-width: 900px) {
+  /* The section is much taller than it is wide on mobile, and the photo
+     is a wide landscape shot. Sized so the photo's rendered height roughly
+     matches the "send us a message" card's height, so the photo shows
+     behind that card; below it, the info card sits on the plain fallback
+     color rather than the photo. This crops some width off the sides
+     (centered), which is expected at this zoom level.
+
+     The dark tint is the first background layer (see the `background`
+     shorthand above: gradient, then photo) and is sized independently of
+     the photo here, stretched to roughly the bottom of the info card, so
+     the darkening reaches past the photo's own shorter height. Its own
+     end stop is fully transparent (rather than desktop's residual 10%
+     black) so it blends directly into white on its own, with the
+     existing ::after fade smoothing the last stretch beneath the info
+     card.
+
+     The photo itself still had a hard edge where it cuts off, though -
+     fading the tint alone doesn't hide the photo's own crop line. The
+     middle layer here is a white fade sized and positioned to exactly
+     match the photo's box, transparent until the photo's final quarter
+     and then feathering to solid white, so the photo's content thins out
+     before its edge instead of stopping abruptly. It still sits under the
+     tint, so it inherits the same darkening as everything else there. */
+  .contact-section {
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 75%, #ffffff 100%),
+      url("images/Contact%20Us/contactus-background.png");
+    background-size: 100% 96%, 100% 52%, auto 52%;
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-position: top center, top center, top center;
+    background-color: #ffffff;
+  }
+
   .contact-deco {
     display: none;
   }

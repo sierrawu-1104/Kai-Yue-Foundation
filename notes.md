@@ -50,3 +50,4 @@ FINAL TOUCHES:
 
 ***Optimize for mobile viewing
 ***reroute domain
+***change contact form recipient email
