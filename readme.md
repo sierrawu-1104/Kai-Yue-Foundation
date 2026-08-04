@@ -59,7 +59,9 @@ Submissions are sent via a custom Vercel serverless function (`api/contact.js`),
 
 **Setup:** requires a Vercel project connected to this repo, with `GMAIL_USER` and `GMAIL_APP_PASSWORD` (a Gmail [app password](https://myaccount.google.com/apppasswords)) set as environment variables.
 
-## Notes
+## Viewing Mediums
+Desktop - Site designed for dektop viewing, most natural and intuitive UI/UX
+Mobile - Mobile view optimized with nav bar contained in hamburger menu
 
 N/A
 ---

@@ -381,6 +381,44 @@
   var anchorOffsetEm;
   var maxFontSize;
 
+  /* background-attachment: fixed (set in CSS) is what makes the image look
+     "pinned" behind the zooming text instead of scaling with it - but
+     mobile browsers (Safari in particular) don't reliably support fixed
+     backgrounds, so on mobile the image just scales along with the text
+     instead of staying put, breaking the zoom-reveal illusion. This
+     reproduces the same visual result by hand: compute where a
+     viewport-"cover"-sized copy of the image would sit if it really were
+     fixed, then every frame, re-express that as a background-position
+     relative to the text element's own (moving, resizing) box. Desktop
+     keeps the native CSS behavior untouched. */
+  var GALLERY_IMG_NATURAL_W = 8143;
+  var GALLERY_IMG_NATURAL_H = 5167;
+  var useFixedBgFallback = false;
+  var bgRenderW, bgRenderH, bgOriginX, bgOriginY;
+
+  function measureFixedBgFallback() {
+    useFixedBgFallback = window.matchMedia("(max-width: 800px)").matches;
+    if (!useFixedBgFallback) return;
+
+    var vw = window.innerWidth;
+    var vh = window.innerHeight;
+    var imgRatio = GALLERY_IMG_NATURAL_W / GALLERY_IMG_NATURAL_H;
+    var viewportRatio = vw / vh;
+
+    if (imgRatio > viewportRatio) {
+      bgRenderH = vh;
+      bgRenderW = vh * imgRatio;
+    } else {
+      bgRenderW = vw;
+      bgRenderH = vw / imgRatio;
+    }
+    bgOriginX = (vw - bgRenderW) / 2;
+    bgOriginY = (vh - bgRenderH) / 2;
+
+    word.style.backgroundAttachment = "scroll";
+    word.style.backgroundSize = bgRenderW + "px " + bgRenderH + "px";
+  }
+
   /* Where the zoom aims depends on the L's position, which depends on
      Urbanist's glyph metrics. Measuring while the fallback font is still
      showing aims it at empty space instead, so this re-runs once the webfont
@@ -411,6 +449,7 @@
   }
 
   measureAnchor();
+  measureFixedBgFallback();
 
   var revealed = false;
   var ticking = false;
@@ -442,6 +481,11 @@
     var drift = anchorOffsetEm * (currentFontSize - baseFontSize);
     word.style.marginLeft = -2 * drift + "px";
 
+    if (useFixedBgFallback) {
+      var wordRect = word.getBoundingClientRect();
+      word.style.backgroundPosition = (bgOriginX - wordRect.left) + "px " + (bgOriginY - wordRect.top) + "px";
+    }
+
     var fadeProgress = (progress - fadeStart) / (1 - fadeStart);
     fadeProgress = Math.min(Math.max(fadeProgress, 0), 1);
     var opacity = 1 - fadeProgress;
@@ -466,6 +510,7 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", function () {
     measureAnchor();
+    measureFixedBgFallback();
     onScroll();
   });
   update();
@@ -476,6 +521,7 @@
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(function () {
       measureAnchor();
+      measureFixedBgFallback();
       update();
     });
   }
@@ -487,10 +533,56 @@
   var tracks = document.querySelectorAll(".gallery-carousel-track");
   if (!wrap || !toggle || !tracks.length) return;
 
+  /* The vertical loop works by translating a doubled track up exactly
+     -50%, so the second (identical) copy lands where the first started.
+     That's only gap-free if a single copy is already at least as tall as
+     the viewport - otherwise the loop point falls inside the visible
+     column and a blank gap passes through before the next copy scrolls
+     up far enough to cover it. Columns with fewer or shorter images (an
+     8-image column measured ~623px tall against an 812px viewport, for
+     example) fell short of that. Each half of the loop must be built from
+     the same whole number of repeats of the original set - not just
+     "enough images" - or the -50% snap-back lands mid-repeat and jumps
+     instead of looping cleanly, so this computes how many whole repeats
+     per half are needed from each set's real (loaded) height and mirrors
+     that exactly on both sides. */
   tracks.forEach(function (track) {
-    Array.prototype.slice.call(track.children).forEach(function (img) {
-      track.appendChild(img.cloneNode(true));
-    });
+    var originalImgs = Array.prototype.slice.call(track.children);
+
+    function appendOriginalSet() {
+      originalImgs.forEach(function (img) {
+        track.appendChild(img.cloneNode(true));
+      });
+    }
+
+    function buildLoop() {
+      var singleSetHeight = track.scrollHeight;
+      var target = window.innerHeight * 1.4;
+      var repsPerHalf = Math.max(1, Math.ceil(target / singleSetHeight));
+      var totalReps = repsPerHalf * 2;
+      for (var i = 1; i < totalReps; i++) {
+        appendOriginalSet();
+      }
+    }
+
+    var pending = originalImgs.filter(function (img) {
+      return !img.complete;
+    }).length;
+
+    if (pending === 0) {
+      buildLoop();
+    } else {
+      originalImgs.forEach(function (img) {
+        if (img.complete) return;
+        img.addEventListener("load", onOneLoaded);
+        img.addEventListener("error", onOneLoaded);
+      });
+    }
+
+    function onOneLoaded() {
+      pending--;
+      if (pending === 0) buildLoop();
+    }
   });
 
   /* Freshly-started track animations sit at currentTime 0. If the user

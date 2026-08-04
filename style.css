@@ -1614,6 +1614,17 @@ h1 {
   transition: transform 1s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
+/* Fewer columns visible per screen on mobile (the rest are still reachable
+   by horizontal scroll - .gallery-carousel already scrolls, this just
+   changes how many columns fit in one screen width). N columns wide means
+   N-1 gaps between them, so the divisor and gap-count below must change
+   together when trying 2 instead of 3. */
+@media (max-width: 800px) {
+  .gallery-carousel-col {
+    flex: 0 0 calc((100% - 2 * var(--carousel-gap)) / 3);
+  }
+}
+
 /* Assigned in script.js (keyed off index % original-column-count) so it
    always matches that column's own idle scroll direction, instead of raw
    nth-child parity which only coincidentally matched when the column
