@@ -1,6 +1,6 @@
 # Kai Yue Foundation Website
 
-A much more modern, visually aesthetic, engaging, and logically streamlined update for the Kai Yue Foundation website; the original site was hosted by the clunky and antiquated Homestead platform. 
+A much more modern, visually aesthetic, engaging, and logically streamlined update for the Kai Yue Foundation website; the original site was hosted by the clunky and antiquated Homestead + Network Solutions platform. 
 Coded by Andy Wu (with much assistance from claude code).
 
 ## Pages
