@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Events | KAI YUE FOUNDATION</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <!-- Starts the hero download during head parsing, before the stylesheet
+       has even resolved, instead of waiting for the <img> in the body. -->
+  <link rel="preload" as="image" href="images/Events%20Page/Events-Hero-Image-web.jpeg" fetchpriority="high" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap" />
   <link rel="stylesheet" href="style.css" />
   <noscript><style>.page-loader { display: none; }</style></noscript>
@@ -33,7 +36,13 @@
 
   <main class="page-main">
     <section class="events-hero">
-      <img src="images/Events%20Page/Events-Hero-Image.jpeg" alt="" class="events-hero-image" />
+      <!-- -web is the same photo resampled to 2560px / ~360KB. The original
+           was 6144px and 4.9MB - roughly 16x the pixels a phone can show and
+           31x the weight of the home page's hero, which is why this one
+           crawled on mobile. fetchpriority tells the browser to fetch it
+           ahead of the other images on the page rather than in document
+           order. The full-size original is kept alongside it. -->
+      <img src="images/Events%20Page/Events-Hero-Image-web.jpeg" alt="" class="events-hero-image" fetchpriority="high" decoding="async" />
       <div class="events-hero-content">
         <h1 class="events-hero-title" data-i18n="events.heroTitle">EVENTS</h1>
         <p class="page-subtitle" data-i18n-html="events.heroSubtitle">
@@ -51,7 +60,7 @@
           <span class="timeline-year">2026</span>
         </button>
         <div class="event-inner">
-          <img src="images/Events%20Page/events-vienna.png" alt="Salute to Vienna New Year's Concert" class="event-image" />
+          <img src="images/Events%20Page/events-vienna-web.webp" alt="Salute to Vienna New Year's Concert" class="event-image" loading="lazy" decoding="async" />
           <div class="event-content">
             <h2 class="event-title" data-i18n="events.e2026Title">Salute to Vienna New Year's Concert</h2>
             <p class="event-text" data-i18n="events.e2026Text">
@@ -75,7 +84,7 @@
           <span class="timeline-year">2025</span>
         </button>
         <div class="event-inner">
-          <img src="images/Events%20Page/events-lea-salonga.png" alt="Lea Salonga at the Kravis Center" class="event-image" />
+          <img src="images/Events%20Page/events-lea-salonga-web.webp" alt="Lea Salonga at the Kravis Center" class="event-image" loading="lazy" decoding="async" />
           <div class="event-content">
             <h2 class="event-title" data-i18n="events.e2025aTitle">Lea Salonga at the Kravis Center</h2>
             <p class="event-text" data-i18n="events.e2025aText">
@@ -99,7 +108,7 @@
           <span class="timeline-year">2025</span>
         </button>
         <div class="event-inner">
-          <img src="images/Events%20Page/events-CMA.png" alt="Chinese Musician Association" class="event-image" />
+          <img src="images/Events%20Page/events-CMA-web.webp" alt="Chinese Musician Association" class="event-image" loading="lazy" decoding="async" />
           <div class="event-content">
             <h2 class="event-title" data-i18n-html="events.e2025bTitle">Sound of Harvest 2025:<br> A Season in Harmony</h2>
             <p class="event-text" data-i18n="events.e2025bText">
@@ -114,7 +123,7 @@
           <span class="timeline-year">2024</span>
         </button>
         <div class="event-inner">
-          <img src="images/Events%20Page/events-vienna-philaharmonic.png" alt="Vienna Philharmonic at Kravis" class="event-image" />
+          <img src="images/Events%20Page/events-vienna-philaharmonic-web.webp" alt="Vienna Philharmonic at Kravis" class="event-image" loading="lazy" decoding="async" />
           <div class="event-content">
             <h2 class="event-title" data-i18n="events.e2024Title">Vienna Philharmonic at Kravis</h2>
             <p class="event-text" data-i18n="events.e2024Text">
@@ -129,7 +138,7 @@
           <span class="timeline-year">2023</span>
         </button>
         <div class="event-inner">
-          <img src="images/Events%20Page/events-cleveland.png" alt="Cleveland Orchestra at Kravis" class="event-image" />
+          <img src="images/Events%20Page/events-cleveland-web.webp" alt="Cleveland Orchestra at Kravis" class="event-image" loading="lazy" decoding="async" />
           <div class="event-content">
             <h2 class="event-title" data-i18n="events.e2023Title">Cleveland Orchestra at Kravis</h2>
             <p class="event-text" data-i18n="events.e2023Text">
@@ -144,7 +153,7 @@
           <span class="timeline-year">2019</span>
         </button>
         <div class="event-inner">
-          <img src="images/Events%20Page/events-bravura.png" alt="Blending of East and West: Bravura Philharmonic Concert" class="event-image" />
+          <img src="images/Events%20Page/events-bravura-web.webp" alt="Blending of East and West: Bravura Philharmonic Concert" class="event-image" loading="lazy" decoding="async" />
           <div class="event-content">
             <h2 class="event-title" data-i18n-html="events.e2019Title">Blending of East and West:<br> Bravura Philharmonic Concert</h2>
             <p class="event-text" data-i18n="events.e2019Text">
@@ -164,7 +173,7 @@
           <span class="timeline-year">2016</span>
         </button>
         <div class="event-inner">
-          <img src="images/Events%20Page/events-lu-siqing.png" alt="吕思清小提琴独奏音乐会" class="event-image" />
+          <img src="images/Events%20Page/events-lu-siqing-web.webp" alt="吕思清小提琴独奏音乐会" class="event-image" loading="lazy" decoding="async" />
           <div class="event-content">
             <h2 class="event-title" data-i18n="events.e2016aTitle">Lu Siqing Violin Solo Concert</h2>
             <p class="event-text" data-i18n="events.e2016aText">
@@ -179,7 +188,7 @@
           <span class="timeline-year">2016</span>
         </button>
         <div class="event-inner">
-          <img src="images/Events%20Page/events-gala-benefit.png" alt="McCarter Theatre Gala Benefit" class="event-image" />
+          <img src="images/Events%20Page/events-gala-benefit-web.webp" alt="McCarter Theatre Gala Benefit" class="event-image" loading="lazy" decoding="async" />
           <div class="event-content">
             <h2 class="event-title" data-i18n="events.e2016bTitle">McCarter Theatre Gala Benefit</h2>
             <p class="event-text" data-i18n="events.e2016bText">
@@ -200,7 +209,7 @@
           <span class="timeline-year">2015</span>
         </button>
         <div class="event-inner">
-          <img src="images/Events%20Page/events-journey-of-love.png" alt="[爱的旅程]歌舞晚会" class="event-image" />
+          <img src="images/Events%20Page/events-journey-of-love-web.webp" alt="[爱的旅程]歌舞晚会" class="event-image" loading="lazy" decoding="async" />
           <div class="event-content">
             <h2 class="event-title" data-i18n="events.e2015Title">Journey of Love</h2>
             <p class="event-text" data-i18n="events.e2015Text">
@@ -215,7 +224,7 @@
           <span class="timeline-year">2014</span>
         </button>
         <div class="event-inner">
-          <img src="images/Events%20Page/events-old-man-horse.png" alt="[塞翁失马]大型音乐史诗" class="event-image" />
+          <img src="images/Events%20Page/events-old-man-horse-web.webp" alt="[塞翁失马]大型音乐史诗" class="event-image" loading="lazy" decoding="async" />
           <div class="event-content">
             <h2 class="event-title" data-i18n="events.e2014aTitle">The Old Man Lost His Horse</h2>
             <p class="event-text" data-i18n="events.e2014aText">
@@ -233,7 +242,7 @@
           <span class="timeline-year">2014</span>
         </button>
         <div class="event-inner">
-          <img src="images/Events%20Page/events-li-chuanyun.png" alt="李传韵小提琴协奏音乐会" class="event-image" />
+          <img src="images/Events%20Page/events-li-chuanyun-web.webp" alt="李传韵小提琴协奏音乐会" class="event-image" loading="lazy" decoding="async" />
           <div class="event-content">
             <h2 class="event-title" data-i18n="events.e2014bTitle">Li Chuanyun Violin Concerto Concert</h2>
             <p class="event-text" data-i18n="events.e2014bText">
@@ -251,7 +260,7 @@
           <span class="timeline-year">2014</span>
         </button>
         <div class="event-inner">
-          <img src="images/Events%20Page/events-horse-year-gala.png" alt="马年普兰斯堡春节晚会" class="event-image" />
+          <img src="images/Events%20Page/events-horse-year-gala-web.webp" alt="马年普兰斯堡春节晚会" class="event-image" loading="lazy" decoding="async" />
           <div class="event-content">
             <h2 class="event-title" data-i18n="events.e2014cTitle">Plainsboro Chinese New Year Gala</h2>
             <p class="event-text" data-i18n-html="events.e2014cText">

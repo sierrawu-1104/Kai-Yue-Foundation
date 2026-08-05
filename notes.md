@@ -51,5 +51,6 @@ FINAL TOUCHES:
 ***Optimize for mobile viewing
 √***make simplified chinese
 x***maybe add fade from all hero images -> content
+√***convert all png images to webp (inefficient load)
 ***reroute domain
 ***change contact form recipient email

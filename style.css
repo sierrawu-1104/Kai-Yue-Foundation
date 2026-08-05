@@ -1466,7 +1466,29 @@ h1 {
 @media (max-width: 800px) {
   .gallery-theater-label {
     transform: translate(-50%, calc(-100% - 8px));
+    /* The label is an event name, not a fixed string, so its width is
+       whatever the longest title happens to be - "Li Chuanyun Violin
+       Concerto Concert" measures 414px against a 390px viewport and ran off
+       both edges, since nowrap (needed on desktop, where there is room)
+       forbids breaking. Allowing it to wrap and capping it to the viewport
+       keeps any title on screen; centring keeps the second line tidy. */
+    white-space: normal;
+    /* Being absolutely positioned with left:50% and no right, its
+       shrink-to-fit width is only the gap from the midpoint to the stage's
+       edge (~152px), which wrapped the title into four cramped lines.
+       max-content restores its natural single-line width so max-width is
+       what actually decides the wrap point. */
+    width: max-content;
+    max-width: calc(100vw - 2.5rem);
+    text-align: center;
+    line-height: 1.25;
   }
+
+  /* No padding-bottom here on purpose: the frame already clears the bottom
+     controls at every height tested (43px spare at 844 tall, 28px at 700,
+     with ~240px between the photo itself and the button), and adding
+     clearance shifted the whole theater up far enough that a two-line title
+     collided with the nav logo instead. */
 }
 
 .gallery-theater-row {
@@ -1662,19 +1684,34 @@ h1 {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #ffffff;
-  transition: opacity 0.6s ease;
+  transition: opacity 0.3s ease;
+}
+
+/* Both labels sit in the same grid cell (grid-area: 1/1), so a plain
+   crossfade paints them over each other - "SEE ALL PHOTOS" on top of "SEE
+   FEATURED PHOTOS" renders as garbled doubled text ("SEESEE ALL PHOTOSOS")
+   for the whole transition, since the wider string's ends stick out past
+   the narrower one. Handing off sequentially instead - whichever label is
+   arriving waits for the departing one to finish clearing - means only one
+   is ever legible at a time. */
+.gallery-view-toggle-all {
+  opacity: 1;
+  transition-delay: 0.3s;
 }
 
 .gallery-view-toggle-featured {
   opacity: 0;
+  transition-delay: 0s;
 }
 
 .gallery-hero-sticky.show-all .gallery-view-toggle-all {
   opacity: 0;
+  transition-delay: 0s;
 }
 
 .gallery-hero-sticky.show-all .gallery-view-toggle-featured {
   opacity: 1;
+  transition-delay: 0.3s;
 }
 
 .gallery-hero-sticky.show-all .gallery-theater {
@@ -1796,7 +1833,7 @@ h1 {
 
 .contact-section {
   position: relative;
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1)), url("images/Contact%20Us/contactus-background.png");
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1)), url("images/Contact%20Us/contactus-background-web.webp");
   background-size: cover;
   background-position: center;
   overflow: hidden;
@@ -2291,7 +2328,7 @@ h1 {
     background-image:
       linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)),
       linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 75%, #ffffff 100%),
-      url("images/Contact%20Us/contactus-background.png");
+      url("images/Contact%20Us/contactus-background-web.webp");
     background-size: 100% 96%, 100% 52%, auto 52%;
     background-repeat: no-repeat, no-repeat, no-repeat;
     background-position: top center, top center, top center;
