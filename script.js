@@ -46,7 +46,7 @@
      text) captures it already in the active language. */
   function applyLang(next) {
     lang = next;
-    document.documentElement.setAttribute("lang", lang === "zh" ? "zh-Hant" : "en");
+    document.documentElement.setAttribute("lang", lang === "zh" ? "zh-Hans" : "en");
 
     document.querySelectorAll("[data-i18n]").forEach(function (el) {
       var entry = lookup(el.getAttribute("data-i18n"));
@@ -352,24 +352,31 @@
   if (isZh) {
     /* "GALLERY" is a wordmark tied to the Latin letter "L"'s stem, so it's
        deliberately left untranslated elsewhere (see gallery.html). In
-       Chinese mode the wordmark switches to 畫廊 ("art gallery" - huàláng,
-       the standard everyday term), and the zoom now targets 畫's own
+       Chinese mode the wordmark switches to 画廊 ("art gallery" - huàláng,
+       the standard everyday term), and the zoom now targets 画's own
        vertical stroke instead. Urbanist has no CJK glyphs, so this also
-       needs a real CJK font (Noto Sans TC) rather than an unpredictable
+       needs a real CJK font (Noto Sans SC) rather than an unpredictable
        system fallback, since the anchor fraction below was measured
-       specifically against it. */
-    solid.textContent = "畫廊";
-    solid.style.fontFamily = "'Noto Sans TC', sans-serif";
-    word.innerHTML = '<span class="gallery-mask-anchor">畫</span>廊';
-    word.style.fontFamily = "'Noto Sans TC', sans-serif";
+       specifically against it. Re-measure that fraction if either the
+       glyph or the font ever changes - the two are not interchangeable.
+       (The traditional 畫 in Noto Sans TC measured 0.493; the simplified
+       画 is a different glyph entirely and does not share that value.) */
+    solid.textContent = "画廊";
+    solid.style.fontFamily = "'Noto Sans SC', sans-serif";
+    word.innerHTML = '<span class="gallery-mask-anchor">画</span>廊';
+    word.style.fontFamily = "'Noto Sans SC', sans-serif";
     anchor = word.querySelector(".gallery-mask-anchor");
     if (!anchor) return;
 
-    /* 畫's vertical stroke sits almost exactly at the centre of its own
-       advance width (measured live, matching the "L" derivation's
-       methodology: render the actual anchor span, then locate the
-       stroke's pixel position within it). */
-    ANCHOR_TARGET_FRACTION = 0.493;
+    /* Unlike 畫, which had one thick full-height stem, 画 has five
+       verticals: the box's two outer edges plus the 田 component's inner
+       strokes. Measured at 300px, those sit at x 44-69, 88-111, 142-165,
+       194-218 and 235-259 of a 300px advance; the middle one is the
+       glyph's own centre stroke, and its centre lands at 0.512 - which
+       agrees with both the ink bounding box (0.508) and the ink centroid
+       (0.519). Picking the widest full-height run instead would snap to
+       the box's right edge (0.817) and aim the zoom off to one side. */
+    ANCHOR_TARGET_FRACTION = 0.512;
   } else {
     /* The glyph's vertical stem spans roughly 0.10-0.29 of that width (the
        rest is the trailing letter-spacing gap plus the foot's empty
