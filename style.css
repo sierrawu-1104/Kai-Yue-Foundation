@@ -155,7 +155,14 @@ h1 {
 .hero-pin {
   position: sticky;
   top: 0;
+  /* 100vh is the LARGE viewport on mobile (toolbar hidden), so with the
+     toolbar actually showing the bottom of this section sits behind it.
+     svh is the small viewport - always fully visible - and unlike dvh it
+     doesn't resize as the toolbar hides/shows, which would otherwise
+     thrash a pinned section mid-scroll. The plain vh line stays as the
+     fallback for browsers without svh. */
   height: 100vh;
+  height: 100svh;
   overflow: hidden;
 }
 
@@ -264,8 +271,18 @@ h1 {
 
 /* Mobile nav: collapse the inline links row into a hamburger that reveals
    a full-screen fade-in overlay. Scoped entirely to this breakpoint so
-   desktop's inline nav is untouched. */
-@media (max-width: 800px) {
+   desktop's inline nav is untouched.
+
+   The height condition catches phones in landscape: those are 812-932px
+   WIDE (iPhone 15 is 844, Pro Max 932), so a width-only mobile breakpoint
+   misses them and hands a phone the desktop inline nav - which, with its
+   padding, eats most of a ~390px-tall screen. Keyed on height rather than
+   a bigger width so real tablets and small laptop windows keep the
+   desktop nav. Only nav and other height-sensitive rules extend this way:
+   at 844px wide there is ample room for the 2-column layouts, and forcing
+   those to single-column would only add scrolling to an already short
+   viewport. */
+@media (max-width: 800px), (orientation: landscape) and (max-height: 500px) {
   .nav-hamburger {
     display: flex;
     flex-direction: column;
@@ -332,6 +349,42 @@ h1 {
   html.nav-open,
   html.nav-open body {
     overflow: hidden;
+  }
+}
+
+/* Short viewports (a phone in landscape) now get the overlay nav, but at
+   the sizes above its five items need ~380px of column - more than a
+   ~390px screen has once browser chrome is counted, so the last item
+   would be cut off. Tightening type and gaps here fits them in roughly
+   220px; the scroll fallback covers anything shorter still. Also trims
+   the nav bar's own vertical padding, which is the single biggest
+   consumer of a short screen. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .nav {
+    padding-top: 0.9rem;
+    padding-bottom: 1.4rem;
+  }
+
+  .nav-links {
+    gap: 1rem;
+    overflow-y: auto;
+  }
+
+  .nav-links a,
+  .nav-links .lang-toggle {
+    font-size: 1.15rem;
+  }
+
+  .nav-links a.btn-contact {
+    font-size: 1.15rem;
+    padding: 0.4rem 1.1rem;
+  }
+
+  /* margin-top: 63vh is over half a short screen on its own, which pushed
+     the hero heading entirely out of view in landscape. */
+  .hero-heading {
+    margin-top: 24vh;
+    padding-bottom: 1.5rem;
   }
 }
 
@@ -556,7 +609,10 @@ h1 {
 
 .events-hero {
   position: relative;
+  /* See .hero-pin: svh keeps the section clear of the mobile toolbar
+     without resizing as it hides/shows. */
   height: 100vh;
+  height: 100svh;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -1275,7 +1331,10 @@ h1 {
 .gallery-hero-pin {
   position: fixed;
   inset: 0;
+  /* See .hero-pin: svh keeps the section clear of the mobile toolbar
+     without resizing as it hides/shows. */
   height: 100vh;
+  height: 100svh;
   overflow: hidden;
   background: #000000;
   z-index: 10;
@@ -1404,11 +1463,45 @@ h1 {
   color: #ffffff;
 }
 
+@media (max-width: 800px) {
+  .gallery-theater-label {
+    transform: translate(-50%, calc(-100% - 8px));
+  }
+}
+
 .gallery-theater-row {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+/* On mobile the row (arrow + gap + stage + gap + arrow) is wider than the
+   viewport, pushing both arrows mostly off-screen. Taking the arrows out
+   of the flex flow lets the stage keep its own width while the row
+   stretches the full viewport, so left/right 0 pins each button flush to
+   its own screen edge - out past the stage rather than over the photo. */
+@media (max-width: 800px) {
+  .gallery-theater-row {
+    position: relative;
+    width: 100%;
+    gap: 0;
+  }
+
+  .gallery-theater-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+  }
+
+  .gallery-theater-arrow-left {
+    left: 0;
+  }
+
+  .gallery-theater-arrow-right {
+    right: 0;
+  }
 }
 
 .gallery-theater-stage {
@@ -1480,6 +1573,18 @@ h1 {
 .gallery-theater-arrow:hover {
   background: rgba(255, 255, 255, 0.15);
   transform: scale(1.08);
+}
+
+/* The mobile arrows are absolutely positioned and centred with
+   translateY(-50%); the plain scale() above would drop that translate and
+   let them jump half their height downward. Touch devices keep :hover
+   stuck after a tap, so this has to re-state the translate rather than
+   rely on hover not happening. Placed after the base rule so it wins on
+   equal specificity. */
+@media (max-width: 800px) {
+  .gallery-theater-arrow:hover {
+    transform: translateY(-50%) scale(1.08);
+  }
 }
 
 .gallery-controls {

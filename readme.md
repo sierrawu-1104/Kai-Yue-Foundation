@@ -60,8 +60,9 @@ Submissions are sent via a custom Vercel serverless function (`api/contact.js`),
 **Setup:** requires a Vercel project connected to this repo, with `GMAIL_USER` and `GMAIL_APP_PASSWORD` (a Gmail [app password](https://myaccount.google.com/apppasswords)) set as environment variables.
 
 ## Viewing Mediums
-Desktop - Site designed for dektop viewing, most natural and intuitive UI/UX
-Mobile - Mobile view optimized with nav bar contained in hamburger menu
+Desktop - Site designed for desktop viewing, most natural and intuitive UI/UX
+Mobile - Mobile view optimized with nav bar contained in hamburger menu. Events page changes to alternating background colors, gallery page shows 3 columns of photos instead of 4 on carousel view.
+Ipad - SHOULD keep desktop view/interface
 
 N/A
 ---

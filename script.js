@@ -397,7 +397,17 @@
   var bgRenderW, bgRenderH, bgOriginX, bgOriginY;
 
   function measureFixedBgFallback() {
-    useFixedBgFallback = window.matchMedia("(max-width: 800px)").matches;
+    /* What this fallback actually depends on is the device, not the
+       window size - so it also asks whether this is a touch device rather
+       than relying on width alone. A phone held in landscape is 812-932px
+       wide, so the width test alone reported "desktop" and handed a real
+       mobile browser the native background-attachment: fixed path this
+       exists to avoid. The width test stays as the first clause because
+       desktop emulation of a small viewport reports hover/pointer as
+       fine, and resizing a desktop window should still exercise this. */
+    useFixedBgFallback =
+      window.matchMedia("(max-width: 800px)").matches ||
+      window.matchMedia("(hover: none) and (pointer: coarse)").matches;
     if (!useFixedBgFallback) return;
 
     var vw = window.innerWidth;
@@ -831,6 +841,54 @@
     },
     { passive: false }
   );
+
+  /* Touch equivalent of the wheel boost above, for mobile: a vertical drag
+     feeds the same boost/decay/playbackRate mechanic frame-by-frame
+     instead of scrolling the page, so swiping up/down while viewing all
+     photos speeds the carousel up the same way a mouse-wheel scroll does
+     on desktop. Reuses WHEEL_SENSITIVITY since touch clientY deltas and
+     wheel deltaY are both already in CSS-pixel-equivalent units. A
+     horizontal-dominant drag is left alone so the carousel's native
+     left/right touch-scroll between columns still works. */
+  var touchLastX = null;
+  var touchLastY = null;
+
+  carousel.addEventListener(
+    "touchstart",
+    function (e) {
+      if (!wrap.classList.contains("show-all") || e.touches.length !== 1) return;
+      touchLastX = e.touches[0].clientX;
+      touchLastY = e.touches[0].clientY;
+    },
+    { passive: true }
+  );
+
+  carousel.addEventListener(
+    "touchmove",
+    function (e) {
+      if (touchLastY === null || e.touches.length !== 1) return;
+      var x = e.touches[0].clientX;
+      var y = e.touches[0].clientY;
+      var dx = x - touchLastX;
+      var dy = touchLastY - y;
+      touchLastX = x;
+      touchLastY = y;
+      if (Math.abs(dy) <= Math.abs(dx)) return;
+      e.preventDefault();
+      boost += dy * WHEEL_SENSITIVITY;
+      boost = Math.max(-MAX_BOOST, Math.min(MAX_BOOST, boost));
+      if (!boostRafId) boostRafId = requestAnimationFrame(boostTick);
+    },
+    { passive: false }
+  );
+
+  function touchEnd() {
+    touchLastX = null;
+    touchLastY = null;
+  }
+
+  carousel.addEventListener("touchend", touchEnd, { passive: true });
+  carousel.addEventListener("touchcancel", touchEnd, { passive: true });
 
   /* Arrow button navigation */
   var navLeftBtn = document.querySelector(".gallery-nav-left");
