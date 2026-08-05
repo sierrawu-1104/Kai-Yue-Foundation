@@ -575,10 +575,15 @@
      visible content by 512px in a single frame. A fixed rep count sidesteps
      the problem rather than compensating for it - it needs no measurement,
      so it can run once, synchronously, before the track ever animates.
-     6 total copies covers every column measured on this site (the
-     shortest, at 6 images, needed only 4) with margin to spare, and the
-     added copies are cheap: same cached image URLs, just more <img> tags. */
-  var LOOP_REPS = 6;
+     4 total copies (2 per half) clears every column measured here: the
+     shortest single copy is ~604px, so a half is ~1208px against an 844px
+     viewport, and the tallest has far more slack. This was 6, which was
+     over-provisioned - each extra rep multiplies every column, and the
+     carousel already builds 28 of them, so 6 put 1416 <img> elements on the
+     page for the browser to lay out and composite every frame. Dropping to
+     4 removes a third of them. Anything below 2 per half reopens the gap
+     bug above, so 4 is the floor. */
+  var LOOP_REPS = 4;
 
   tracks.forEach(function (track) {
     var originalImgs = Array.prototype.slice.call(track.children);
@@ -792,10 +797,17 @@
     var track = col.querySelector(".gallery-carousel-track");
     if (!eventName || !track) return;
     var imgs = Array.prototype.slice.call(track.children);
-    var originalCount = imgs.length / 2;
+    /* The track holds LOOP_REPS copies of the event's photos, so one copy -
+       the real photo list - is that many times shorter. This divided by 2
+       back when the track was only ever doubled; once LOOP_REPS grew, the
+       theater opened with every photo repeated three times. */
+    var originalCount = imgs.length / LOOP_REPS;
     var index = imgs.indexOf(target) % originalCount;
     var srcs = imgs.slice(0, originalCount).map(function (img) {
-      return img.src;
+      /* The carousel tiles are small webp thumbnails (they are only ever
+         drawn ~119px wide on a phone); the theater shows the photo big, so
+         it takes the full-size original recorded on data-full. */
+      return img.getAttribute("data-full") || img.src;
     });
     window.kyTheater.showEvent(srcs, eventName, index);
     wrap.classList.remove("show-all");

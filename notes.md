@@ -48,9 +48,13 @@ FINAL TOUCHES:
 √***scrolling glitching on events page
 √***fix embedded pdf being blocked by browser
 
-***Optimize for mobile viewing
+
 √***make simplified chinese
 x***maybe add fade from all hero images -> content
 √***convert all png images to webp (inefficient load)
+√***modify mobile gallery so carousel not laggy
+***add mobile gallery animation to prevent lag
+
+***Optimize for mobile viewing
 ***reroute domain
 ***change contact form recipient email
