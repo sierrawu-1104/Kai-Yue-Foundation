@@ -560,45 +560,32 @@
      example) fell short of that. Each half of the loop must be built from
      the same whole number of repeats of the original set - not just
      "enough images" - or the -50% snap-back lands mid-repeat and jumps
-     instead of looping cleanly, so this computes how many whole repeats
-     per half are needed from each set's real (loaded) height and mirrors
-     that exactly on both sides. */
+     instead of looping cleanly.
+
+     This used to size that per column, from each set's real (loaded)
+     height - waiting on each image's load event first since an
+     unloaded/broken image reports zero height. But the -50% target is a
+     CSS percentage, recalculated live against the track's current height
+     on every frame - so appending more copies after the animation is
+     already running (which "show-all" starts as soon as its class is
+     toggled, not once images finish loading) visibly yanks the content to
+     a new position. On a real network, slow images finish loading well
+     after that, mid-animation, while the user is watching - reproduced
+     directly: appending a copy to an already-running track jumped its
+     visible content by 512px in a single frame. A fixed rep count sidesteps
+     the problem rather than compensating for it - it needs no measurement,
+     so it can run once, synchronously, before the track ever animates.
+     6 total copies covers every column measured on this site (the
+     shortest, at 6 images, needed only 4) with margin to spare, and the
+     added copies are cheap: same cached image URLs, just more <img> tags. */
+  var LOOP_REPS = 6;
+
   tracks.forEach(function (track) {
     var originalImgs = Array.prototype.slice.call(track.children);
-
-    function appendOriginalSet() {
+    for (var i = 1; i < LOOP_REPS; i++) {
       originalImgs.forEach(function (img) {
         track.appendChild(img.cloneNode(true));
       });
-    }
-
-    function buildLoop() {
-      var singleSetHeight = track.scrollHeight;
-      var target = window.innerHeight * 1.4;
-      var repsPerHalf = Math.max(1, Math.ceil(target / singleSetHeight));
-      var totalReps = repsPerHalf * 2;
-      for (var i = 1; i < totalReps; i++) {
-        appendOriginalSet();
-      }
-    }
-
-    var pending = originalImgs.filter(function (img) {
-      return !img.complete;
-    }).length;
-
-    if (pending === 0) {
-      buildLoop();
-    } else {
-      originalImgs.forEach(function (img) {
-        if (img.complete) return;
-        img.addEventListener("load", onOneLoaded);
-        img.addEventListener("error", onOneLoaded);
-      });
-    }
-
-    function onOneLoaded() {
-      pending--;
-      if (pending === 0) buildLoop();
     }
   });
 
@@ -676,6 +663,16 @@
 
   var COLUMN_DURATIONS_S = [70, 85, 62, 92, 76, 98];
 
+  /* These durations were tuned back when every track had exactly 2 copies
+     (1 repeat per half) - the CSS duration is a fixed number of seconds
+     for the whole -50% traversal, regardless of how tall that traversal
+     is, so it directly sets a track's pixel speed for a given height.
+     LOOP_REPS now builds 3 repeats per half (6 total) instead of 1, which
+     is 3x the distance in the same time - 3x the speed - unless the
+     duration scales up by the same factor to hold the tuned speed
+     constant. */
+  var REPS_PER_HALF = LOOP_REPS / 2;
+
   Array.prototype.forEach.call(carousel.children, function (col, i) {
     var track = col.querySelector(".gallery-carousel-track");
     if (!track) return;
@@ -683,7 +680,7 @@
     var scrollsDown = j % 2 !== 0;
     track.style.animationDirection = scrollsDown ? "reverse" : "normal";
     track.style.animationDuration =
-      COLUMN_DURATIONS_S[j % COLUMN_DURATIONS_S.length] + "s";
+      COLUMN_DURATIONS_S[j % COLUMN_DURATIONS_S.length] * REPS_PER_HALF + "s";
     /* Reveal slide-in direction matches this column's own idle scroll
        direction (same j-based parity, not raw nth-child position), so a
        column never slides in one way and immediately flips to scroll the

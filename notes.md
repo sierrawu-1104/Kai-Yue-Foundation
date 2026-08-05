@@ -49,6 +49,7 @@ FINAL TOUCHES:
 √***fix embedded pdf being blocked by browser
 
 ***Optimize for mobile viewing
-***maybe add fade from all hero images -> content
+√***make simplified chinese
+x***maybe add fade from all hero images -> content
 ***reroute domain
 ***change contact form recipient email
