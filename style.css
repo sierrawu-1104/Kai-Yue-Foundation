@@ -1328,6 +1328,31 @@ h1 {
   height: 220vh;
 }
 
+/* Mobile plays the zoom as a fixed-duration animation on load instead of
+   tying it to scroll distance (see script.js), so there's no reason to
+   reserve extra scroll height for it here - that would just be dead space
+   the user scrolls through before reaching the carousel. Matches the
+   breakpoint script.js uses to pick the same code path. */
+@media (max-width: 800px), (hover: none) and (pointer: coarse) {
+  .gallery-hero-sticky {
+    height: 100vh;
+    height: 100svh;
+  }
+
+  /* The gallery page's whole mobile experience (auditorium image, theater,
+     carousel) lives inside .gallery-hero-pin, which is fixed and already
+     fills the viewport - the footer below it in the document was never
+     meant to be reachable here. Without this, it was still in the
+     scrollable area, so touch scrolling/bounce revealed a sliver of it
+     past the edge of the fixed pin. html needs the same rule, not just
+     body - overflow:hidden on body alone still lets html itself scroll. */
+  html:has(body.gallery-page),
+  body.gallery-page {
+    overflow: hidden;
+    height: 100%;
+  }
+}
+
 .gallery-hero-pin {
   position: fixed;
   inset: 0;
@@ -1446,10 +1471,14 @@ h1 {
 }
 
 .gallery-theater-label {
+  /* Anchored by its own top edge (not the old bottom-anchored -100% flip)
+     so it always starts at the same distance below the frame's top edge
+     and grows downward, into the frame, as more lines wrap - instead of
+     growing upward and poking out above the border the taller it gets. */
   position: absolute;
-  top: var(--theater-pad-y);
+  top: 1.5rem;
   left: 50%;
-  transform: translate(-50%, calc(-100% - 24px));
+  transform: translateX(-50%);
   z-index: 2;
   margin: 0;
   padding: 0;
@@ -1465,7 +1494,7 @@ h1 {
 
 @media (max-width: 800px) {
   .gallery-theater-label {
-    transform: translate(-50%, calc(-100% - 8px));
+    top: 1rem;
     /* The label is an event name, not a fixed string, so its width is
        whatever the longest title happens to be - "Li Chuanyun Violin
        Concerto Concert" measures 414px against a 390px viewport and ran off
@@ -1483,12 +1512,6 @@ h1 {
     text-align: center;
     line-height: 1.25;
   }
-
-  /* No padding-bottom here on purpose: the frame already clears the bottom
-     controls at every height tested (43px spare at 844 tall, 28px at 700,
-     with ~240px between the photo itself and the button), and adding
-     clearance shifted the whole theater up far enough that a two-line title
-     collided with the nav logo instead. */
 }
 
 .gallery-theater-row {

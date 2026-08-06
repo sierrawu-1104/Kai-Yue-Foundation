@@ -53,7 +53,13 @@ FINAL TOUCHES:
 x***maybe add fade from all hero images -> content
 √***convert all png images to webp (inefficient load)
 √***modify mobile gallery so carousel not laggy
-***add mobile gallery animation to prevent lag
+√***add mobile gallery animation to prevent lag
+√***make footer invisible in mobile gallery
+√***change chinese zoom to right edge of first character
+√***make all event titles in gallery theater view wholly within border
+
+***remove left/right border overflow (touch-drag) events page
+***contact page subheader newline
 
 ***Optimize for mobile viewing
 ***reroute domain

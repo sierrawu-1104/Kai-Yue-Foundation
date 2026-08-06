@@ -347,6 +347,11 @@
      left edge. */
   var ANCHOR_TARGET_FRACTION;
 
+  /* How far down the anchor glyph's own box the zoom aims, 0 = its top edge.
+     null means "don't correct vertically" (the English wordmark's stem runs
+     the glyph's full height, so there's no single row worth targeting). */
+  var ANCHOR_TARGET_Y_FRACTION = null;
+
   var isZh = window.kyLang && window.kyLang.get() === "zh";
 
   if (isZh) {
@@ -368,15 +373,31 @@
     anchor = word.querySelector(".gallery-mask-anchor");
     if (!anchor) return;
 
-    /* Unlike 畫, which had one thick full-height stem, 画 has five
-       verticals: the box's two outer edges plus the 田 component's inner
-       strokes. Measured at 300px, those sit at x 44-69, 88-111, 142-165,
-       194-218 and 235-259 of a 300px advance; the middle one is the
-       glyph's own centre stroke, and its centre lands at 0.512 - which
-       agrees with both the ink bounding box (0.508) and the ink centroid
-       (0.519). Picking the widest full-height run instead would snap to
-       the box's right edge (0.817) and aim the zoom off to one side. */
-    ANCHOR_TARGET_FRACTION = 0.512;
+    /* 画 has five verticals: the box's two outer edges plus the 田
+       component's inner strokes. Found by rendering the glyph to a canvas
+       at 600px (weight 600, matching the CSS) and scanning a row clear of
+       any horizontal strokes (y=350) for dark runs: 68-132, 176-228,
+       290-345, 408-462 and 509-572 of a 600px advance starting at x=20.
+       The zoom targets the body of the box's right edge - the last run,
+       centred at 540.5 - which as a fraction of the glyph's own 600px
+       advance is (540.5-20)/600 = 0.8675.
+
+       But anchorRect below is measured on the live <span>, which (unlike
+       this canvas render) inherits letter-spacing: 0.05em from the word -
+       and that trailing space turned out to land inside the span's own
+       getBoundingClientRect(), inflating its width to 1.05x the glyph's
+       true advance (measured live: 67.2px wide at a 64px font-size).
+       Multiplying the *inflated* width by 0.8675 overshoots past the
+       stroke's centre toward its outer boundary, so this divides that
+       back out first: 0.8675 / 1.05 = 0.8262. */
+    ANCHOR_TARGET_FRACTION = 0.8262;
+
+    /* That right edge is one of the two full-height strokes (unlike the
+       three internal verticals, which stop partway) - scanning it top to
+       bottom found it spans the glyph's entire ink height, y=160 to 678,
+       same as the character's own ink bounding box. Its middle is just
+       that box's vertical centre, i.e. fraction 0.5. */
+    ANCHOR_TARGET_Y_FRACTION = 0.5;
   } else {
     /* The glyph's vertical stem spans roughly 0.10-0.29 of that width (the
        rest is the trailing letter-spacing gap plus the foot's empty
@@ -386,6 +407,7 @@
 
   var baseFontSize;
   var anchorOffsetEm;
+  var anchorOffsetYEm;
   var maxFontSize;
 
   /* background-attachment: fixed (set in CSS) is what makes the image look
@@ -443,8 +465,10 @@
   function measureAnchor() {
     var prevFontSize = word.style.fontSize;
     var prevMarginLeft = word.style.marginLeft;
+    var prevMarginTop = word.style.marginTop;
     word.style.fontSize = "";
     word.style.marginLeft = "";
+    word.style.marginTop = "";
 
     baseFontSize = parseFloat(getComputedStyle(word).fontSize);
 
@@ -461,35 +485,27 @@
     var anchorTargetX = anchorRect.left + anchorRect.width * ANCHOR_TARGET_FRACTION;
     anchorOffsetEm = (anchorTargetX - containerCenterX) / baseFontSize;
 
+    if (ANCHOR_TARGET_Y_FRACTION !== null) {
+      var containerCenterY = containerRect.top + containerRect.height / 2;
+      var anchorTargetY = anchorRect.top + anchorRect.height * ANCHOR_TARGET_Y_FRACTION;
+      anchorOffsetYEm = (anchorTargetY - containerCenterY) / baseFontSize;
+    } else {
+      anchorOffsetYEm = 0;
+    }
+
     word.style.fontSize = prevFontSize;
     word.style.marginLeft = prevMarginLeft;
+    word.style.marginTop = prevMarginTop;
   }
 
   measureAnchor();
   measureFixedBgFallback();
 
   var revealed = false;
-  var ticking = false;
 
-  function update() {
-    if (revealed) {
-      ticking = false;
-      return;
-    }
-
-    var rect = wrap.getBoundingClientRect();
-    var viewportHeight = window.innerHeight;
-    var pinDistance = wrap.offsetHeight - viewportHeight;
-
-    if (pinDistance <= 0) {
-      ticking = false;
-      return;
-    }
-
-    var scrolledIntoPin = -rect.top;
-    var progress = scrolledIntoPin / pinDistance;
-    progress = Math.min(Math.max(progress, 0), 1);
-
+  /* Shared by both drivers below - the only difference between them is
+     where "progress" (0 = untouched, 1 = fully zoomed) comes from. */
+  function applyProgress(progress) {
     var eased = Math.pow(progress, 1.6);
     var multiplier = 1 + eased * 30;
     var currentFontSize = Math.min(baseFontSize * multiplier, maxFontSize);
@@ -497,6 +513,9 @@
 
     var drift = anchorOffsetEm * (currentFontSize - baseFontSize);
     word.style.marginLeft = -2 * drift + "px";
+
+    var driftY = anchorOffsetYEm * (currentFontSize - baseFontSize);
+    word.style.marginTop = -2 * driftY + "px";
 
     if (useFixedBgFallback) {
       var wordRect = word.getBoundingClientRect();
@@ -509,38 +528,125 @@
     blackBlock.style.opacity = opacity;
     maskText.style.opacity = opacity;
 
-    if (progress >= 1) {
+    if (progress >= 1 && !revealed) {
       revealed = true;
       wrap.classList.add("revealed");
     }
-
-    ticking = false;
   }
 
-  function onScroll() {
-    if (!ticking) {
-      window.requestAnimationFrame(update);
-      ticking = true;
+  if (useFixedBgFallback) {
+    /* Mobile: tying the zoom to scroll meant recomputing font-size and the
+       background-position fallback above on every scroll tick, which is
+       what was laggy - and since that fallback can only ever be exactly
+       right for the one progress value it was just computed for, a fast or
+       janky scroll left it visibly behind the "true" position, which is
+       the mask/image mismatch. Playing a single fixed-duration animation
+       once on load fixes both: it runs off rAF's own clock instead of
+       scroll input, and it only ever has to land the background-position
+       for the one progress value it's animating toward at that instant. */
+    /* The solid white "GALLERY" crossfades into the image-clipped mask via
+       the CSS animations above (solid fade-out: delay 1s + duration 1s,
+       word fade-in: delay 1s + duration 1s) - both land at t=2s. Starting
+       the zoom before that had it visibly growing while the mask was still
+       fading in from transparent, so this waits for the crossfade to fully
+       settle first. */
+    var MOBILE_ZOOM_DELAY = 1500;
+    var MOBILE_ZOOM_DURATION = 1450;
+    var mobileStartTime = null;
+
+    function playMobileZoom(timestamp) {
+      if (mobileStartTime === null) mobileStartTime = timestamp;
+      var elapsed = timestamp - mobileStartTime;
+      var linear = Math.min(Math.max(elapsed / MOBILE_ZOOM_DURATION, 0), 1);
+      /* Exponential ease-in: barely moves at first, then rockets toward the
+         end. EXP_STEEPNESS controls how dramatic that is - 1 is linear,
+         higher numbers hold back longer before the final acceleration. */
+      var EXP_STEEPNESS = 300;
+      var progress = (Math.pow(EXP_STEEPNESS, linear) - 1) / (EXP_STEEPNESS - 1);
+      applyProgress(progress);
+      if (progress < 1) {
+        window.requestAnimationFrame(playMobileZoom);
+      }
     }
-  }
 
-  window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", function () {
-    measureAnchor();
-    measureFixedBgFallback();
-    onScroll();
-  });
-  update();
+    applyProgress(0);
+    window.setTimeout(function () {
+      window.requestAnimationFrame(playMobileZoom);
+    }, MOBILE_ZOOM_DELAY);
 
-  /* The webfont usually lands after this script runs, and whether it beats us
-     varies by origin (file:// and localhost cache separately), which is why the
-     aim differed between them. */
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(function () {
+    /* Only the geometry needs to stay current on resize/orientation change -
+       the animation itself plays once and is not restarted or scrubbed. */
+    window.addEventListener("resize", function () {
       measureAnchor();
       measureFixedBgFallback();
-      update();
     });
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () {
+        measureAnchor();
+        measureFixedBgFallback();
+        /* The webfont (Urbanist, or Noto Sans SC for 画廊) usually finishes
+           loading during the crossfade/delay above, after the resting
+           applyProgress(0) call already ran against the fallback font's
+           layout. A Latin word re-laying-out in a different font can shift
+           width noticeably, which left the background-position visibly
+           behind - so this reapplies the resting frame with the now-correct
+           geometry. Skipped once the zoom itself has started so a late
+           webfont load can't yank an in-flight animation back to 0. */
+        if (mobileStartTime === null) applyProgress(0);
+      });
+    }
+  } else {
+    var ticking = false;
+
+    function updateFromScroll() {
+      if (revealed) {
+        ticking = false;
+        return;
+      }
+
+      var rect = wrap.getBoundingClientRect();
+      var viewportHeight = window.innerHeight;
+      var pinDistance = wrap.offsetHeight - viewportHeight;
+
+      if (pinDistance <= 0) {
+        ticking = false;
+        return;
+      }
+
+      var scrolledIntoPin = -rect.top;
+      var progress = scrolledIntoPin / pinDistance;
+      progress = Math.min(Math.max(progress, 0), 1);
+
+      applyProgress(progress);
+      ticking = false;
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        window.requestAnimationFrame(updateFromScroll);
+        ticking = true;
+      }
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", function () {
+      measureAnchor();
+      measureFixedBgFallback();
+      onScroll();
+    });
+    updateFromScroll();
+
+    /* The webfont usually lands after this script runs, and whether it beats
+       us varies by origin (file:// and localhost cache separately), which is
+       why the aim differed between them. */
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () {
+        measureAnchor();
+        measureFixedBgFallback();
+        updateFromScroll();
+      });
+    }
   }
 })();
 

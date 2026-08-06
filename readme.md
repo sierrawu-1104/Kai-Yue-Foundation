@@ -8,7 +8,7 @@ Coded by Andy Wu (with much assistance from claude code).
 - **Home** – Mission overview and welcome
 - **Events** – Timeline of sponsored concerts and galas with embedded videos
 - **Partnerships** – Organizational partners and collaborators
-- **Gallery** – Interactive carousel of event photos with zoom and theater viewing
+- **Gallery** – Interactive carousel of event photos with zoom and theater viewing (***NOTE: two version of every gallery image are stored in the repository folders; 400w and 800w for mobile and desktop view respectively. Ensures the least possible lag during carousel effect)
 - **Contact** – Contact form and donation application
 
 ## Project Structure
