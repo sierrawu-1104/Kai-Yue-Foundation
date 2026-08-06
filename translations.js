@@ -49,7 +49,7 @@ window.KY_I18N = {
   events: {
     heroTitle: { en: "EVENTS", zh: "活动" },
     heroSubtitle: {
-      en: "A look back at the concerts, galas, and community celebrations the Kai Yue Foundation has been proud to sponsor.",
+      en: "A look back at the concerts, galas, and community celebrations the <br class=\"mobile-hide-break\">Kai Yue Foundation has been proud to sponsor.",
       zh: "回顾恺悦基金会引以为傲、曾赞助支持的音乐会、晚宴与社区庆祝活动。",
     },
     timelineLabel: { en: "Timeline", zh: "时间轴" },
@@ -263,7 +263,7 @@ window.KY_I18N = {
     heroTitle: { en: "CONTACT US", zh: "联络我们" },
     heroSubtitle: {
       en: "We'd love to hear from you — reach out with questions, <br class=\"mobile-hide-break\">donation inquiries, or partnership ideas.",
-      zh: "我们期待听到您的声音——欢迎就任何问题、<br>捐款询问或合作构想与我们联系。",
+      zh: "我们期待听到您的声音——欢迎就任何问题、<br class=\"mobile-hide-break\">捐款询问或合作构想与我们联系。",
     },
     sendUsMessage: {
       en: "Send Us <br>A Message<span class=\"contact-accent-dot\"></span>",
