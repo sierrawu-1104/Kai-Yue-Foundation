@@ -59,6 +59,32 @@ body {
   font-size: 1rem;
 }
 
+/* Several sections (scroll-reveal images/content, decorative art) sit
+   translateX()'d off their resting position or bleed past the edge by
+   design - harmless on desktop, where there's room, but on mobile it lets
+   a horizontal drag/overscroll pull the page sideways and reveal empty
+   space past the content. Pages that opt in via .no-h-scroll clip that
+   instead of chasing down every individual offset. html needs the same
+   rule, not just body - overflow-x:hidden on body alone still lets html
+   itself scroll.
+
+   clip, not hidden: per the overflow spec, setting only one axis to a
+   non-visible value forces the OTHER axis's computed value to auto (even
+   though it's never been set here, so it's still "visible" as far as this
+   stylesheet is concerned) - which turns html/body into their own
+   scrolling container instead of just "the page scrolls". That broke the
+   home page's position: sticky hero (.hero-pin), since sticky resolves
+   against the nearest scrolling ancestor - it started scrolling away
+   immediately instead of pinning. clip doesn't trigger that coercion (it
+   pairs with visible without forcing auto), so it blocks the same
+   horizontal drag without taking over as a scroll container. */
+@media (max-width: 800px), (hover: none) and (pointer: coarse) {
+  html:has(body.no-h-scroll),
+  body.no-h-scroll {
+    overflow-x: clip;
+  }
+}
+
 .partnerships-page {
   background: linear-gradient(to right, var(--color-base) 0%, var(--color-base) 10%, #ffffff 70%, #ffffff 100%);
 }
@@ -1483,7 +1509,24 @@ h1 {
   margin: 0;
   padding: 0;
   background: none;
-  white-space: nowrap;
+  /* The label is an event name, not a fixed string, so its width is
+     whatever the longest title happens to be - "Li Chuanyun Violin
+     Concerto Concert" is wide enough to run past the frame's own left/right
+     edges even on a fairly wide desktop stage, not just on mobile. Wrapping
+     it and capping its width to the stage (the frame fills the stage via
+     inset: 0, so 100% here is the frame's own width) keeps every title
+     inside the border regardless of viewport; centring keeps wrapped lines
+     tidy. */
+  white-space: normal;
+  /* Being absolutely positioned with left:50% and no right, its
+     shrink-to-fit width is only the gap from the midpoint to the stage's
+     edge, which wraps into unnecessarily cramped lines. max-content
+     restores its natural single-line width so max-width is what actually
+     decides the wrap point. */
+  width: max-content;
+  max-width: calc(100% - 3rem);
+  text-align: center;
+  line-height: 1.25;
   font-family: "Urbanist", sans-serif;
   font-weight: 600;
   font-size: clamp(1.1rem, 2.2vw, 1.5rem);
@@ -1495,22 +1538,7 @@ h1 {
 @media (max-width: 800px) {
   .gallery-theater-label {
     top: 1rem;
-    /* The label is an event name, not a fixed string, so its width is
-       whatever the longest title happens to be - "Li Chuanyun Violin
-       Concerto Concert" measures 414px against a 390px viewport and ran off
-       both edges, since nowrap (needed on desktop, where there is room)
-       forbids breaking. Allowing it to wrap and capping it to the viewport
-       keeps any title on screen; centring keeps the second line tidy. */
-    white-space: normal;
-    /* Being absolutely positioned with left:50% and no right, its
-       shrink-to-fit width is only the gap from the midpoint to the stage's
-       edge (~152px), which wrapped the title into four cramped lines.
-       max-content restores its natural single-line width so max-width is
-       what actually decides the wrap point. */
-    width: max-content;
-    max-width: calc(100vw - 2.5rem);
-    text-align: center;
-    line-height: 1.25;
+    max-width: calc(100% - 2rem);
   }
 }
 
@@ -1853,6 +1881,12 @@ h1 {
 }
 
 /* ---------- Contact page ---------- */
+
+@media (max-width: 800px), (hover: none) and (pointer: coarse) {
+  .mobile-hide-break {
+    display: none;
+  }
+}
 
 .contact-section {
   position: relative;

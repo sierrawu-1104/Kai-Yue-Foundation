@@ -58,9 +58,10 @@ x***maybe add fade from all hero images -> content
 √***change chinese zoom to right edge of first character
 √***make all event titles in gallery theater view wholly within border
 
-***remove left/right border overflow (touch-drag) events page
-***contact page subheader newline
+√***make event title fit within vertical edges of theater view
+√***remove left/right border overflow (touch-drag) events page
+√***contact page subheader newline
 
-***Optimize for mobile viewing
+√***Optimize for mobile viewing complete
 ***reroute domain
 ***change contact form recipient email

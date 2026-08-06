@@ -262,7 +262,7 @@ window.KY_I18N = {
   contact: {
     heroTitle: { en: "CONTACT US", zh: "联络我们" },
     heroSubtitle: {
-      en: "We'd love to hear from you — reach out with questions, <br>donation inquiries, or partnership ideas.",
+      en: "We'd love to hear from you — reach out with questions, <br class=\"mobile-hide-break\">donation inquiries, or partnership ideas.",
       zh: "我们期待听到您的声音——欢迎就任何问题、<br>捐款询问或合作构想与我们联系。",
     },
     sendUsMessage: {
