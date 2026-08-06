@@ -59,14 +59,14 @@ body {
   font-size: 1rem;
 }
 
-/* Several sections (scroll-reveal images/content, decorative art) sit
+/* Site-wide horizontal scroll lock, on every page and at every viewport
+   size (not just mobile - a few sections, like the scroll-reveal
+   images/content on the home page and decorative art on contact, sit
    translateX()'d off their resting position or bleed past the edge by
-   design - harmless on desktop, where there's room, but on mobile it lets
-   a horizontal drag/overscroll pull the page sideways and reveal empty
-   space past the content. Pages that opt in via .no-h-scroll clip that
-   instead of chasing down every individual offset. html needs the same
-   rule, not just body - overflow-x:hidden on body alone still lets html
-   itself scroll.
+   design, and a desktop window narrow enough to matter can expose the same
+   gap a mobile drag would). Pages opt in via .no-h-scroll instead of
+   chasing down every individual offset. html needs the same rule, not just
+   body - overflow-x:hidden on body alone still lets html itself scroll.
 
    clip, not hidden: per the overflow spec, setting only one axis to a
    non-visible value forces the OTHER axis's computed value to auto (even
@@ -77,12 +77,17 @@ body {
    against the nearest scrolling ancestor - it started scrolling away
    immediately instead of pinning. clip doesn't trigger that coercion (it
    pairs with visible without forcing auto), so it blocks the same
-   horizontal drag without taking over as a scroll container. */
-@media (max-width: 800px), (hover: none) and (pointer: coarse) {
-  html:has(body.no-h-scroll),
-  body.no-h-scroll {
-    overflow-x: clip;
-  }
+   horizontal drag without taking over as a scroll container.
+
+   This never touches the gallery page's own horizontal interactions -
+   theater mode's swipe/wheel photo navigation reads touch/wheel deltas by
+   hand rather than scrolling anything, and the carousel view scrolls
+   inside its own .gallery-carousel (overflow-x: auto), a separate
+   scroll container from html/body - so locking the page's own axis here
+   doesn't reach either of them. */
+html:has(body.no-h-scroll),
+body.no-h-scroll {
+  overflow-x: clip;
 }
 
 .partnerships-page {
