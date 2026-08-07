@@ -1,4 +1,4 @@
-const nodemailer = require("nodemailer");
+const { Resend } = require("resend");
 
 /* Only these origins may call this function. Add the production domain here
    once the site moves off GitHub Pages. */
@@ -64,21 +64,14 @@ module.exports = {
         attachments.push({
           filename: file.name,
           content: buffer,
-          contentType: file.type,
         });
       }
 
-      var transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-          user: process.env.GMAIL_USER,
-          pass: process.env.GMAIL_APP_PASSWORD,
-        },
-      });
+      var resend = new Resend(process.env.RESEND_API_KEY);
 
-      await transporter.sendMail({
-        from: process.env.GMAIL_USER,
-        to: process.env.GMAIL_USER,
+      var result = await resend.emails.send({
+        from: process.env.CONTACT_FROM_EMAIL,
+        to: process.env.CONTACT_TO_EMAIL,
         replyTo: email,
         subject: "[" + topic + "] Website inquiry from " + name,
         text:
@@ -92,6 +85,18 @@ module.exports = {
           message,
         attachments: attachments,
       });
+
+      /* The SDK resolves even on a rejected send (bad from-domain, invalid
+         recipient, etc.) rather than throwing - it reports that through
+         result.error instead, so this has to be checked explicitly or a
+         failed send would still report success: true below. */
+      if (result.error) {
+        console.error(result.error);
+        return Response.json(
+          { success: false, message: "Failed to send" },
+          { status: 500, headers: headers }
+        );
+      }
 
       /* buffer/attachments go out of scope here and are garbage collected —
          nothing is ever written to disk or any persistent store. */
