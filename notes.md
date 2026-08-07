@@ -63,5 +63,9 @@ x***maybe add fade from all hero images -> content
 √***contact page subheader newline
 
 √***Optimize for mobile viewing complete
-***reroute domain
+√***reroute domain
+
+***update chinese
+***setup old website domain and add to readme
 ***change contact form recipient email
+***remove .html from each /page 

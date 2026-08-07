@@ -3,9 +3,9 @@
    from window.KY_I18N via dotted key paths (e.g. "nav.events"). */
 window.KY_I18N = {
   nav: {
-    events: { en: "Events", zh: "活动" },
-    partnerships: { en: "Partnerships", zh: "合作伙伴" },
-    gallery: { en: "Gallery", zh: "画廊" },
+    events: { en: "Events", zh: "赞助项目" },
+    partnerships: { en: "Partnerships", zh: "支持的单位及机构" },
+    gallery: { en: "Gallery", zh: "照片集锦" },
     contact: { en: "Contact Us", zh: "联络我们" },
   },
 
@@ -84,10 +84,10 @@ window.KY_I18N = {
       zh: "由音乐总监法兰兹．威尔瑟－莫斯特（Franz Welser-Möst）领军的克里夫兰管弦乐团，近日被《纽约时报》誉为「近乎完美」。该乐团被公认为全球顶尖乐团之一，以卓越的音乐造诣及对所在社区的奉献与服务闻名。恺悦基金会是克里夫兰管弦乐团演出舒伯特（Schubert）第八号交响曲《未完成》及柴可夫斯基（Tchaikovsky）第六号交响曲《悲怆》的赞助者之一。",
     },
 
-    e2019Title: { en: "Blending of East and West:<br> Bravura Philharmonic Concert", zh: "东西交融：<br>博维拉爱乐音乐会" },
+    e2019Title: { en: "Blending of East and West:<br> Bravura Philharmonic Concert", zh: "东西交融：<br>巴露华爱乐音乐会" },
     e2019Text: {
       en: "The KAI YUE FOUNDATION sponsored the \"Blending of East and West\" concert conducted by Chiu-Tze Lin, pairing Western orchestral instrumentation with celebrated Chinese guest artists. This collaboration allows symphonic masterpieces to share the stage with traditional Eastern sounds, bridging cultural divides and expanding the musical repertoire.",
-      zh: "恺悦基金会赞助了由林秋孜（Chiu-Tze Lin）指挥的《东西交融》音乐会，将西方管弦乐编制与知名华人客席艺术家相结合。这次合作让交响乐经典名作与传统东方乐音同台演出，跨越文化藩篱，拓展音乐的表现形式。",
+      zh: "恺悦基金会赞助了由林巧慈指挥的《东西交融》音乐会，将西方管弦乐编制与知名华人客席艺术家相结合。这次合作让交响乐经典名作与传统东方乐音同台演出，跨越文化藩篱，拓展音乐的表现形式。",
     },
 
     e2016aTitle: { en: "Lu Siqing Violin Solo Concert", zh: "吕思清小提琴独奏音乐会" },
@@ -223,11 +223,11 @@ window.KY_I18N = {
       zh: "中心由众多热心成员组成，他们在各自的人生成就之外，皆拥有多元且全面的艺术才华与表演技艺。MCCCA已在蒙特娄及周边地区，以及加拿大东部与美国多个城市，于重要社交、文化及节庆场合，为华人、加拿大及美国社区呈现超过数百场精彩演出。",
     },
 
-    bravuraName: { en: "Bravura Philharmonic Orchestra", zh: "博维拉爱乐乐团" },
+    bravuraName: { en: "Bravura Philharmonic Orchestra", zh: "巴露华爱乐乐团" },
     bravuraLocation: { en: "West Windsor, NJ", zh: "纽泽西州西温莎" },
     bravuraText: {
       en: "This young orchestra was founded by and is under the direction of the internationally-renowned conductor and Steinway Artist Chiu-Tze Lin. It consists of professional musicians, gifted amateurs, and outstanding young music students. The orchestra, together with its ensembles, are available to provide musical services to the community. The Bravura Philharmonic Orchestra has four programs a year in its concert season: a Season-Opening Concert, a Holiday Concert in December, a Family Concert in March, and a Spring Concert in May. The orchestra also sponsors an annual Young Artists Competition, with the winners performing in concert with the orchestra in May.",
-      zh: "这支年轻的乐团由国际知名指挥家暨史坦威艺术家林秋孜（Chiu-Tze Lin）创立并担任指导。乐团成员包括专业音乐家、天赋出众的业余爱好者，以及优秀的青年音乐学生。乐团及其附属合奏团体皆可为社区提供音乐服务。博维拉爱乐乐团每个音乐季推出四场节目：开季音乐会、12月的节庆音乐会、3月的家庭音乐会，以及5月的春季音乐会。乐团亦每年赞助青年艺术家大赛，优胜者将于5月与乐团同台演出。",
+      zh: "这支年轻的乐团由国际知名指挥家暨史坦威艺术家林巧慈创立并担任指导。乐团成员包括专业音乐家、天赋出众的业余爱好者，以及优秀的青年音乐学生。乐团及其附属合奏团体皆可为社区提供音乐服务。巴露华爱乐乐团每个音乐季推出四场节目：开季音乐会、12月的节庆音乐会、3月的家庭音乐会，以及5月的春季音乐会。乐团亦每年赞助青年艺术家大赛，优胜者将于5月与乐团同台演出。",
     },
 
     peddieName: { en: "Peddie School", zh: "佩迪学校" },
