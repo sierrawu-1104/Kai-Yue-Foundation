@@ -49,10 +49,10 @@ Kai-Yue-Foundation/
 
 ## Deployment
 
-Hosted & Deployed by Vercel (redeployed whenever pushing changes to this git repo). 
-Apex Domain: www.kaiyuefoundation.org
-Pointed Domains: kaiyuefoundation.org, www.kyfoundation.org, kyfoundation.org
-OLD SITE Domain: oldkyfoundation.org
+- Hosted & Deployed by Vercel (redeployed whenever pushing changes to this git repo). 
+- Apex Domain: www.kaiyuefoundation.org
+- Pointed Domains: kaiyuefoundation.org, www.kyfoundation.org, kyfoundation.org
+- OLD SITE Domain: oldkyfoundation.org
 
 DOMAIN REGISTRAR INFO: 
 Managed through Homestead + Network Solutions
@@ -60,7 +60,7 @@ Managed through Homestead + Network Solutions
 - kyfoundation.org — backend registrar: eNom, LLC
 Account contact: Zheng Huang (huang@kyfoundation.org)
 
-**Known issue (Aug 2026): kaiyuefoundation.org was in `clientHold` status, which fully blocked DNS propagation and resolution. Root cause was a——now no longer accessible——original registrant contact email (Susan.kane-dowling@vivace-investment.com), not billing or a DNS misconfiguration. For future reference, check status on Whois.com
+**Known issue (Aug 2026): kaiyuefoundation.org was in `clientHold` status, which fully blocked DNS propagation and resolution. Root cause was a&mdash;now no longer accessible&mdash;original registrant contact email (Susan.kane-dowling@vivace-investment.com) failing to verify domain, not billing or a DNS misconfiguration. For future reference, check status on Whois.com
 
 ## Technologies
 
@@ -93,8 +93,8 @@ Submissions are handled by a custom Vercel serverless function (`api/contact.js`
 ## Viewing Mediums
 
 - Desktop - Site designed for desktop viewing, most natural and intuitive UI/UX
-- Mobile - Mobile view optimized to the best of my ability; nav bar contained in hamburger menu, events page changes to alternating background colors, gallery page shows 3 columns of photos instead of 4 on carousel view, gallery zoom animation based on elapsed time instead of scroll——the default for desktop view
-- Ipad - Mixed: layout breakpoints (nav, carousel columns, events colors) are width-based, so a wide/landscape iPad gets the desktop version of those while a vertical ipad——depending on width——may get mobile view. However, touch-detection features (gallery zoom timing, horizontal scroll lock) are determined based off touch/no-hover rather than width, so iPads always get the mobile (elapsed-time) gallery zoom regardless of screen size.
+- Mobile - Mobile view optimized to the best of my ability; nav bar contained in hamburger menu, events page changes to alternating background colors, gallery page shows 3 columns of photos instead of 4 on carousel view, gallery zoom animation based on elapsed time instead of scroll&mdash;the default for desktop view
+- Ipad - Mixed: layout breakpoints (nav, carousel columns, events colors) are width-based, so a wide/landscape iPad gets the desktop version of those while a vertical ipad&mdash;depending on width&mdash;may get mobile view. However, touch-detection features (gallery zoom timing, horizontal scroll lock) are determined based off touch/no-hover rather than width, so iPads always get the mobile (elapsed-time) gallery zoom regardless of screen size.
 
 ## Notes
 
@@ -102,7 +102,7 @@ Submissions are handled by a custom Vercel serverless function (`api/contact.js`
 
 ## FUTURE IMPROVEMENTS
 
-- Switch to newer and better-maintained domain registrar (like NameCheap or PorkBun): Currently the domain registrar is still through the soon-to-be obsolete Homestead platform; this has caused issues (like setting up DKIM (TXT) and DMARC (TXT) DNS records in resend to verify emails and prevent them from landing in spam) because Homestead doesn't allow underscores in DNS names——seems to be a known limitation of older DNS panels.
+- Switch to newer and better-maintained domain registrar (like NameCheap or PorkBun): Currently the domain registrar is still through the soon-to-be obsolete Homestead platform; this has caused issues (like setting up DKIM (TXT) and DMARC (TXT) DNS records in resend to verify emails and prevent them from landing in spam) because Homestead doesn't allow underscores in DNS names&mdash;seems to be a known limitation of older DNS panels.
 
 ---
 
