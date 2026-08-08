@@ -1,8 +1,11 @@
 const { Resend } = require("resend");
 
-/* Only these origins may call this function. Add the production domain here
-   once the site moves off GitHub Pages. */
+/* Only these origins may call this function. */
 const ALLOWED_ORIGINS = [
+  "https://kaiyuefoundation.org",
+  "https://www.kaiyuefoundation.org",
+  "https://kyfoundation.org",
+  "https://www.kyfoundation.org",
   "https://sierrawu-1104.github.io",
   "https://kai-yue-foundation.vercel.app",
   "http://localhost:8934",
