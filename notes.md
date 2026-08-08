@@ -51,7 +51,7 @@ FINAL TOUCHES:
 
 √***make simplified chinese
 x***maybe add fade from all hero images -> content
-√***convert all png images to webp (inefficient load)
+√***convert all png images to webp (inefficient loading otherwise)
 √***modify mobile gallery so carousel not laggy
 √***add mobile gallery animation to prevent lag
 √***make footer invisible in mobile gallery
@@ -68,9 +68,9 @@ x***maybe add fade from all hero images -> content
 √***update chinese
 
 √***remove .html from each page domain/extension
-
-***setup old website domain and add to readme
 √***edit contact form readme (resend)
 
+√***change contact from email in resend
+***setup old website domain and add to readme
 ***add site logo for browser tab and search engine results
-***change contact from email in resend
+

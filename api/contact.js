@@ -73,7 +73,7 @@ module.exports = {
         from: process.env.CONTACT_FROM_EMAIL,
         to: process.env.CONTACT_TO_EMAIL,
         replyTo: email,
-        subject: "[" + topic + "] Website inquiry from " + name,
+        subject: "[" + topic + "] - " + name,
         text:
           "Name: " +
           name +
