@@ -64,8 +64,13 @@ x***maybe add fade from all hero images -> content
 
 √***Optimize for mobile viewing complete
 √***reroute domain
+√***change contact form recipient email
+√***update chinese
 
-***update chinese
+√***remove .html from each page domain/extension
+
 ***setup old website domain and add to readme
-***change contact form recipient email
-***remove .html from each /page 
+√***edit contact form readme (resend)
+
+***add site logo for browser tab and search engine results
+***change contact from email in resend
