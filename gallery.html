@@ -50,9 +50,11 @@
       <div class="gallery-hero-pin">
         <img src="images/Gallery%20Page/gallery-hero-image.jpg" alt="" class="gallery-hero-image" />
         <div class="gallery-black-block"></div>
-        <!-- Intentionally not translated: the zoom animation targets the
-             stem of the Latin letter "L" specifically, so this wordmark
-             stays "GALLERY" in both languages. -->
+        <!-- No data-i18n here on purpose: the zoom animation aims at one
+             measured stroke inside the anchor glyph, so swapping languages
+             means swapping the font and the anchor fractions too, not just
+             the text. script.js rewrites this whole block to 照片集锦 in
+             Chinese mode - see the isZh branch there. -->
         <h1 class="gallery-mask-text">
           <span class="gallery-mask-solid">GALLERY</span>
           <span class="gallery-mask-word">GAL<span class="gallery-mask-anchor">L</span>ERY</span>

@@ -116,7 +116,7 @@ window.KY_I18N = {
 
     e2014bTitle: { en: "Li Chuanyun Violin Concerto Concert", zh: "李传韵小提琴协奏音乐会" },
     e2014bText: {
-      en: "Generously sponsored by the Kai Yue Foundation, the Ba-Lu-Hua Philharmonic Orchestra presented a musical extravaganza on Saturday, March 22, 2014, at 7:30 PM. Conducted by Music Director Lin Qiaoci, the concert featured internationally renowned violinist Li Chuanyun performing Tchaikovsky's Violin Concerto alongside \"Morning in the Miao Mountains\" and other pieces. Li Chuanyun's masterful technique and improvisational skill astonished the audience of over 700.",
+      en: "Generously sponsored by the Kai Yue Foundation, the Bravura Philharmonic Orchestra presented a musical extravaganza on Saturday, March 22, 2014, at 7:30 PM. Conducted by Music Director Lin Qiaoci, the concert featured internationally renowned violinist Li Chuanyun performing Tchaikovsky's Violin Concerto alongside \"Morning in the Miao Mountains\" and other pieces. Li Chuanyun's masterful technique and improvisational skill astonished the audience of over 700.",
       zh: "由恺悦基金会倾情捐助呈献，巴露华爱乐交响乐团于2014年3月22日星期六晚7：30隆重推出了一场音乐盛会。这场音乐会由音乐总监林巧慈指挥，特邀世界著名的小提琴家李传韵联合出演了柴可夫斯基小提琴协奏曲以及苗岭的早晨等曲目。李传韵以精湛的演奏技巧和即兴发挥技能而震惊在场的700多名观众。",
     },
 

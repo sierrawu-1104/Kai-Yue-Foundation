@@ -357,47 +357,49 @@
   if (isZh) {
     /* "GALLERY" is a wordmark tied to the Latin letter "L"'s stem, so it's
        deliberately left untranslated elsewhere (see gallery.html). In
-       Chinese mode the wordmark switches to 画廊 ("art gallery" - huàláng,
-       the standard everyday term), and the zoom now targets 画's own
-       vertical stroke instead. Urbanist has no CJK glyphs, so this also
-       needs a real CJK font (Noto Sans SC) rather than an unpredictable
-       system fallback, since the anchor fraction below was measured
-       specifically against it. Re-measure that fraction if either the
-       glyph or the font ever changes - the two are not interchangeable.
-       (The traditional 畫 in Noto Sans TC measured 0.493; the simplified
-       画 is a different glyph entirely and does not share that value.) */
-    solid.textContent = "画廊";
+       Chinese mode the wordmark switches to 照片集锦 ("photo highlights"),
+       matching the nav label, and the zoom centres on the third glyph, 集.
+       Urbanist has no CJK glyphs, so this also needs a real CJK font (Noto
+       Sans SC) rather than an unpredictable system fallback, since the
+       anchor fractions below were measured specifically against it.
+       Re-measure them if either the glyph or the font ever changes - they
+       are not interchangeable between glyphs. (Earlier wordmarks measured
+       entirely different values: 畫 in Noto Sans TC was 0.493, and 画's
+       box-right-edge was 0.8262.) */
+    solid.textContent = "照片集锦";
     solid.style.fontFamily = "'Noto Sans SC', sans-serif";
-    word.innerHTML = '<span class="gallery-mask-anchor">画</span>廊';
+    word.innerHTML = '照片<span class="gallery-mask-anchor">集</span>锦';
     word.style.fontFamily = "'Noto Sans SC', sans-serif";
     anchor = word.querySelector(".gallery-mask-anchor");
     if (!anchor) return;
 
-    /* 画 has five verticals: the box's two outer edges plus the 田
-       component's inner strokes. Found by rendering the glyph to a canvas
-       at 600px (weight 600, matching the CSS) and scanning a row clear of
-       any horizontal strokes (y=350) for dark runs: 68-132, 176-228,
-       290-345, 408-462 and 509-572 of a 600px advance starting at x=20.
-       The zoom targets the body of the box's right edge - the last run,
-       centred at 540.5 - which as a fraction of the glyph's own 600px
-       advance is (540.5-20)/600 = 0.8675.
+    /* Aiming at 集's exact middle turned out to be the one thing not to do:
+       rendering the glyph to a canvas at 600px (weight 600, matching the
+       CSS) and running a distance transform over the ink - which scores
+       every pixel by how far it sits from the nearest non-ink pixel, i.e.
+       how long it stays covered as the text scales 30x - put the ink box's
+       exact centre (397, 398) just 7px clear of a gap. Zooming there would
+       tear open into background partway through the reveal instead of
+       filling the screen with image. Nudging 30px to (420, 417) - still
+       only 5% of the glyph off centre, so it still reads as "the middle" -
+       lands inside a stroke with 35px of clearance, 5x better. That point
+       is 0.5333em right of this glyph's advance origin.
 
-       But anchorRect below is measured on the live <span>, which (unlike
-       this canvas render) inherits letter-spacing: 0.05em from the word -
-       and that trailing space turned out to land inside the span's own
-       getBoundingClientRect(), inflating its width to 1.05x the glyph's
-       true advance (measured live: 67.2px wide at a 64px font-size).
-       Multiplying the *inflated* width by 0.8675 overshoots past the
-       stroke's centre toward its outer boundary, so this divides that
-       back out first: 0.8675 / 1.05 = 0.8262. */
-    ANCHOR_TARGET_FRACTION = 0.8262;
+       anchorRect below is measured on the live <span>, which (unlike the
+       canvas render) inherits letter-spacing: 0.05em from the word, and
+       that trailing space lands inside the span's own
+       getBoundingClientRect() - confirmed live, the span measures exactly
+       1.05x the font-size even now that the anchor is a middle character
+       rather than the first. Multiplying the *inflated* width by 0.5333
+       would overshoot, so divide it back out: 0.5333/1.05. */
+    ANCHOR_TARGET_FRACTION = 0.5079;
 
-    /* That right edge is one of the two full-height strokes (unlike the
-       three internal verticals, which stop partway) - scanning it top to
-       bottom found it spans the glyph's entire ink height, y=160 to 678,
-       same as the character's own ink bounding box. Its middle is just
-       that box's vertical centre, i.e. fraction 0.5. */
-    ANCHOR_TARGET_Y_FRACTION = 0.5;
+    /* Same target expressed vertically. Note this fraction is of the
+       span's line box, not the ink box - the two differ, so this was
+       derived live rather than from the canvas: the target sits 0.3517em
+       above the baseline, and measuring the real span's rect against its
+       baseline put that at 0.5575 of the box's height. */
+    ANCHOR_TARGET_Y_FRACTION = 0.5575;
   } else {
     /* The glyph's vertical stem spans roughly 0.10-0.29 of that width (the
        rest is the trailing letter-spacing gap plus the foot's empty
@@ -585,7 +587,7 @@
       document.fonts.ready.then(function () {
         measureAnchor();
         measureFixedBgFallback();
-        /* The webfont (Urbanist, or Noto Sans SC for 画廊) usually finishes
+        /* The webfont (Urbanist, or Noto Sans SC for 照片集锦) usually finishes
            loading during the crossfade/delay above, after the resting
            applyProgress(0) call already ran against the fallback font's
            layout. A Latin word re-laying-out in a different font can shift
