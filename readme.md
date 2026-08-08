@@ -49,10 +49,10 @@ Kai-Yue-Foundation/
 
 ## Deployment
 
-Hosted & Deployed by Vercel (redeployed whenever pushing changes to this git repo). 
-Apex Domain: www.kaiyuefoundation.org
-Pointed Domains: kaiyuefoundation.org, www.kyfoundation.org, kyfoundation.org
-OLD SITE Domain: oldkyfoundation.org
+- Hosted & Deployed by Vercel (redeployed whenever pushing changes to this git repo). 
+- Apex Domain: www.kaiyuefoundation.org
+- Pointed Domains: kaiyuefoundation.org, www.kyfoundation.org, kyfoundation.org
+- OLD SITE Domain: oldkyfoundation.org
 
 DOMAIN REGISTRAR INFO: 
 Managed through Homestead + Network Solutions
@@ -94,7 +94,7 @@ Submissions are handled by a custom Vercel serverless function (`api/contact.js`
 
 - Desktop - Site designed for desktop viewing, most natural and intuitive UI/UX
 - Mobile - Mobile view optimized to the best of my ability; nav bar contained in hamburger menu, events page changes to alternating background colors, gallery page shows 3 columns of photos instead of 4 on carousel view, gallery zoom animation based on elapsed time instead of scroll——the default for desktop view
-- Ipad - Mixed: layout breakpoints (nav, carousel columns, events colors) are width-based, so a wide/landscape iPad gets the desktop version of those while a vertical ipad——depending on width——may get mobile view. However, touch-detection features (gallery zoom timing, horizontal scroll lock) are determined based off touch/no-hover rather than width, so iPads always get the mobile (elapsed-time) gallery zoom regardless of screen size.
+- Ipad - Mixed: layout breakpoints (nav, carousel columns, events colors) are width-based, so a wide/landscape iPad gets the desktop version of those while a vertical ipad&mdashdepending on width&mdashmay get mobile view. However, touch-detection features (gallery zoom timing, horizontal scroll lock) are determined based off touch/no-hover rather than width, so iPads always get the mobile (elapsed-time) gallery zoom regardless of screen size.
 
 ## Notes
 
