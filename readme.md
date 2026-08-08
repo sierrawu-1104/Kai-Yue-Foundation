@@ -60,7 +60,7 @@ Managed through Homestead + Network Solutions
 - kyfoundation.org — backend registrar: eNom, LLC
 Account contact: Zheng Huang (huang@kyfoundation.org)
 
-**Known issue (Aug 2026): kaiyuefoundation.org was in `clientHold` status, which fully blocked DNS propagation and resolution. Root cause was a&mdash;now no longer accessible&mdash;original registrant contact email (Susan.kane-dowling@vivace-investment.com), not billing or a DNS misconfiguration. For future reference, check status on Whois.com
+**Known issue (Aug 2026): kaiyuefoundation.org was in `clientHold` status, which fully blocked DNS propagation and resolution. Root cause was a&mdash;now no longer accessible&mdash;original registrant contact email (Susan.kane-dowling@vivace-investment.com) failing to verify domain, not billing or a DNS misconfiguration. For future reference, check status on Whois.com
 
 ## Technologies
 
