@@ -74,5 +74,6 @@ x***maybe add fade from all hero images -> content
 √***add site logo for browser tab and search engine results
 ***setup old website domain and add to readme
 
-***setup DKIM by calling homestead (also confirm domain verification), switch to custom sending email
+***setup DKIM by calling homestead (also confirm oldkyfoundation domain verification)
+***test custom sender display name
 

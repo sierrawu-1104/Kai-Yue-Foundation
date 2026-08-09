@@ -52,7 +52,10 @@ Kai-Yue-Foundation/
 - Hosted & Deployed by Vercel (redeployed whenever pushing changes to this git repo). 
 - Apex Domain: www.kaiyuefoundation.org
 - Pointed Domains: kaiyuefoundation.org, www.kyfoundation.org, kyfoundation.org
-- OLD SITE Domain: oldkyfoundation.org
+- Canonical Domain: [www.kaiyuefoundation.org]
+- Apex Domain: [kaiyuefoundation.org] (redirects to the canonical domain above)
+- Redirecting Domains: [kyfoundation.org], [www.kyfoundation.org] (also redirects to the canonical domain above)
+- Legacy/Archive Domain: oldkyfoundation.org (preserves old homestead hosted site for posterity)
 
 DOMAIN REGISTRAR INFO: 
 Managed through Homestead + Network Solutions
