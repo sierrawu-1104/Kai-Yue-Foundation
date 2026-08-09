@@ -99,7 +99,7 @@ Submissions are handled by a custom Vercel serverless function (`api/contact.js`
 
 ## Notes
 
-**For Local Testing: This site uses clean URLs (/events, not events.html), which only works on Vercel's live server. Opening the HTML files locally on pc won't allow navigation between pages, since the nav links and the .html-stripping both depend on a real server and root. To preview locally when testing, run a simple server (e.g. python3 -m http.server) and use .html in the address, or install the Vercel CLI and run vercel dev to match the live site exactly.
+**For Local Testing: The deployed site uses clean URLs (/events, not events.html) which looks nicer in browser — Vercel's `cleanUrls` setting in `vercel.json` automatically redirects any `.html`-suffixed request to its clean equivalent. However, it is tedious to push changes and redeploy every time for testing small changes, so opening the HTML files directly on your web browser (assuming you have cloned the repo locally) allows instant viewing of code edits; navigation should work normally as well, although embedded videos may be blocked by default browser settings. 
 
 ## FUTURE IMPROVEMENTS
 
