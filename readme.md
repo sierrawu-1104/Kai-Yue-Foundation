@@ -50,8 +50,6 @@ Kai-Yue-Foundation/
 ## Deployment
 
 - Hosted & Deployed by Vercel (redeployed whenever pushing changes to this git repo). 
-- Apex Domain: www.kaiyuefoundation.org
-- Pointed Domains: kaiyuefoundation.org, www.kyfoundation.org, kyfoundation.org
 - Canonical Domain: [www.kaiyuefoundation.org]
 - Apex Domain: [kaiyuefoundation.org] (redirects to the canonical domain above)
 - Redirecting Domains: [kyfoundation.org], [www.kyfoundation.org] (also redirects to the canonical domain above)
