@@ -24,6 +24,29 @@
 })();
 
 (function () {
+  var navLinks = document.querySelectorAll(".nav-links a[href]");
+  if (!navLinks.length) return;
+
+  /* Compares by page name rather than the raw path, since the same page is
+     reachable two ways: deployed clean URLs (/events) and relative .html
+     files for local file:// browsing (events.html) - see the earlier fix
+     making local navigation work without breaking clean URLs on deploy. */
+  function pageName(path) {
+    path = path.split("?")[0].split("#")[0].replace(/\/+$/, "");
+    var last = path.split("/").pop() || "";
+    return last.replace(/\.html$/i, "").toLowerCase();
+  }
+
+  var current = pageName(location.pathname);
+
+  navLinks.forEach(function (link) {
+    if (pageName(link.getAttribute("href")) === current) {
+      link.classList.add("nav-current");
+    }
+  });
+})();
+
+(function () {
   var DICT = window.KY_I18N;
   if (!DICT) return;
 
@@ -795,14 +818,34 @@
      constant. */
   var REPS_PER_HALF = LOOP_REPS / 2;
 
+  /* A column's pixel speed depends on how TALL it is (fixed seconds for the
+     whole -50% traversal), so Journey of Love going from 9 to 26 photos
+     would have raced through the same seconds ~3x faster than the value
+     above was tuned for (that raw, uncorrected combination worked out to
+     ~120px/s - noticeably too fast). That event is a one-time 2015 gala, not
+     an ongoing series, so rather than scale its duration off a photo count
+     that could later drift again, its duration is hardcoded directly below -
+     measured at a 1440px-wide viewport to hold ~75px/s, comfortably faster
+     than every other column's fastest (Plainsboro Chinese New Year Gala,
+     ~35px/s at the same width) while staying well under that ~120px/s
+     ceiling. Like COLUMN_DURATIONS_S, this is a fixed seconds-per-traversal,
+     so actual px/s still varies some with viewport width (column width, and
+     so image height, is responsive) - 75px/s is only exact at that reference
+     width, same caveat the tuned array already carries. Keyed by data-event
+     rather than position so reordering events can't silently mis-pair it. */
+  var COLUMN_DURATION_OVERRIDES_S = { "Journey of Love Gala": 224.16 };
+
   Array.prototype.forEach.call(carousel.children, function (col, i) {
     var track = col.querySelector(".gallery-carousel-track");
     if (!track) return;
     var j = i % loopLength;
     var scrollsDown = j % 2 !== 0;
     track.style.animationDirection = scrollsDown ? "reverse" : "normal";
+    var override = COLUMN_DURATION_OVERRIDES_S[col.getAttribute("data-event")];
     track.style.animationDuration =
-      COLUMN_DURATIONS_S[j % COLUMN_DURATIONS_S.length] * REPS_PER_HALF + "s";
+      (override != null
+        ? override
+        : COLUMN_DURATIONS_S[j % COLUMN_DURATIONS_S.length] * REPS_PER_HALF) + "s";
     /* Reveal slide-in direction matches this column's own idle scroll
        direction (same j-based parity, not raw nth-child position), so a
        column never slides in one way and immediately flips to scroll the

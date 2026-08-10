@@ -247,6 +247,7 @@ h1 {
 }
 
 .nav-links a {
+  position: relative;
   display: inline-block;
   color: #ffffff;
   text-decoration: none;
@@ -258,6 +259,67 @@ h1 {
 
 .nav-links a:hover {
   transform: scale(1.2);
+}
+
+/* Underline is a separate ::after bar (not text-decoration) so it can be
+   scaled rather than just toggled - transform-origin: center plus
+   scaleX(0->1) grows it outward from the middle on hover. currentColor picks
+   up each link's own color automatically, including .btn-contact's black
+   text on its light pill. bottom is em-based so it scales with the
+   mobile-menu and landscape font-size overrides below without its own
+   per-breakpoint rule. */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.3em;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.1s ease-out;
+  pointer-events: none;
+}
+
+/* Contact Us is a filled pill, not plain text sitting on the hero image, so
+   the em-based bottom above (meant to clear descenders below a baseline)
+   would land the bar below the whole button instead of inside it. Inset by
+   the button's own padding so it sits under the text, within the pill - the
+   landscape override below repeats this with that breakpoint's own
+   (smaller) .btn-contact padding, since these are hardcoded to match rather
+   than derived from it. */
+.nav-links a.btn-contact::after {
+  left: 1.4rem;
+  right: 1.4rem;
+  bottom: 0.45rem;
+}
+
+/* Base/persistent state: nav-current (set in script.js for whichever page
+   matches the current URL) shows its underline without hovering - present
+   at scaleX(1) from first paint, no entrance animation, so it reads as
+   "persistent" rather than a hover echo. Home has no nav-links entry to
+   begin with, so it's naturally excluded rather than needing an exception. */
+.nav-links a.nav-current::after {
+  transform: scaleX(1);
+}
+
+/* While the pointer is anywhere in the nav bar, only one underline should be
+   lit at a time - suppress the persistent current-page one so hovering a
+   different link doesn't show two at once. :not(:hover) scopes this to
+   "some OTHER link is being hovered": if nav-current is itself the hovered
+   link, this rule stops matching and the plain :hover rule below (which
+   every link, current or not, already gets) shows it instead - avoiding a
+   specificity fight between "suppress" and "hovered" for that one case. */
+.nav-links:hover a.nav-current:not(:hover)::after {
+  transform: scaleX(0);
+}
+
+/* Hover reveals the underline as a preview, for any link. Leaving the nav
+   bar entirely (nothing left hovered) drops out of the rule above too, so
+   nav-current's underline reappears on its own. */
+.nav-links a:hover::after {
+  transform: scaleX(1);
 }
 
 .nav-links a.btn-contact {
@@ -409,6 +471,12 @@ h1 {
   .nav-links a.btn-contact {
     font-size: 1.15rem;
     padding: 0.4rem 1.1rem;
+  }
+
+  .nav-links a.btn-contact::after {
+    left: 1.1rem;
+    right: 1.1rem;
+    bottom: 0.3rem;
   }
 
   /* margin-top: 63vh is over half a short screen on its own, which pushed
@@ -901,9 +969,30 @@ h1 {
   color: #000000;
 }
 
+/* Inherits .event-text's face/weight so it reads as the closing line of the
+   prose rather than a separate UI control. inline-block keeps the underline
+   tight to the text and gives the nudge below something to translate. */
+.event-link {
+  display: inline-block;
+  margin-top: 1rem;
+  font-family: "Source Code Pro", monospace;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #000000;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.event-link:hover {
+  opacity: 0.7;
+  transform: translateX(3px);
+}
+
 .event-reverse .eyebrow,
 .event-reverse .event-title,
-.event-reverse .event-text {
+.event-reverse .event-text,
+.event-reverse .event-link {
   color: #ffffff;
 }
 
@@ -981,12 +1070,14 @@ h1 {
      built for its left/right layout - needs to flip here: .event is now
      predominantly black, .event-reverse predominantly orange. */
   .event-title,
-  .event-text {
+  .event-text,
+  .event-link {
     color: #ffffff;
   }
 
   .event-reverse .event-title,
-  .event-reverse .event-text {
+  .event-reverse .event-text,
+  .event-reverse .event-link {
     color: #000000;
   }
 

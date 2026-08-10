@@ -47,7 +47,7 @@ window.KY_I18N = {
   },
 
   events: {
-    heroTitle: { en: "EVENTS", zh: "活动" },
+    heroTitle: { en: "EVENTS", zh: "赞助项目" },
     heroSubtitle: {
       en: "A look back at the concerts, galas, and community celebrations the <br class=\"mobile-hide-break\">Kai Yue Foundation has been proud to sponsor.",
       zh: "回顾恺悦基金会引以为傲、曾赞助支持的音乐会、晚宴与社区庆祝活动。",
@@ -107,6 +107,7 @@ window.KY_I18N = {
       en: "The large-scale musical gala \"Journey of Love\" was proudly staged on May 23, 2015, at the New Jersey State Theatre. Hosted by the Kai Yue Foundation and supported jointly by numerous sponsors, volunteers, and community organizations, this charity gala drew an audience of approximately 1,400. The star-studded cast featured Cheng Lin, Zhang Aoyue, KC Porter, Zhou Lingyan, Liu Mo, Pang Xuan, the Curtis Trio, New York street dance troupes, and local arts organizations. Proceeds from the evening were donated to the charity \"Mama's Association\" to help support children in need.",
       zh: "【爱的旅程】大型歌舞晚会于2015年5月23日在新泽西州立大剧院隆重上演。这是由恺悦基金主办，许多赞助者、志愿者及社团联合支持的一台公益晚会，大约有1400人观看了演出。演员阵容强大，明星汇集。有程琳、张傲月、KC Porter、周灵燕、刘沫、庞旋、柯蒂斯三重奏、纽约街舞及当地艺术团体等出演。晚会盈利捐赠给了慈善组织《妈妈联谊会》救助贫困儿童。",
     },
+    e2015Poem: { en: "Poem >>", zh: "诗歌 >>" },
 
     e2014aTitle: { en: "The Old Man Lost His Horse", zh: "塞翁失马" },
     e2014aText: {
@@ -146,7 +147,7 @@ window.KY_I18N = {
   },
 
   partnerships: {
-    heroTitle: { en: "PARTNERSHIPS", zh: "合作伙伴" },
+    heroTitle: { en: "PARTNERSHIPS", zh: "支持的单位及机构" },
     heroSubtitle: {
       en: "We passionately support organizations where our funding makes the greatest impact.",
       zh: "我们全力支持能让善款发挥最大影响力的机构。",

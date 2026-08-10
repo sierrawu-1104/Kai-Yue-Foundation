@@ -76,12 +76,13 @@ x***maybe add fade from all hero images -> content
 
 √***setup old website domain and add to readme
 √***fix wide monitor margin issue
-√***fix auto zoom on wide monitor
 
 √***fix consistent education section staggering, and wider mobile view prose text width
+√***update journey of love photos, add poem pdf
+√***add simple persistent underline for current page in nav bar along with hover animation
+***fix auto zoom on wide monitor
 
-***clone and redeploy old site on vercel
-***update journey of love photos, add poem pdf
-***setup resend DKIM by calling homestead (also confirm oldkyfoundation domain verification)
+***clone and redeploy old site on vercel, update readme
+***setup resend DKIM by calling homestead (also confirm oldkyfoundation domain verification), cancel subscription
 ***test custom sender display name
 
