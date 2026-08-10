@@ -447,7 +447,7 @@ h1 {
   grid-template-columns: 1fr 1fr;
   gap: clamp(2rem, 5vw, 4rem);
   align-items: center;
-  max-width: 1800px;
+  width: 92%;
   margin: 0 auto clamp(1.5rem, 3vw, 2.5rem);
   padding-bottom: clamp(2.5rem, 6vw, 4rem);
   border-bottom: 1px solid #6e6e6e00;
@@ -527,7 +527,7 @@ h1 {
 }
 
 .pillars-heading {
-  max-width: 1200px;
+  width: 70%;
   margin: 0 auto clamp(2rem, 5vw, 3.5rem);
   text-align: center;
   font-size: clamp(1.75rem, 4vw, 2.5rem);
@@ -547,7 +547,7 @@ h1 {
 }
 
 .pillars-grid {
-  max-width: 1700px;
+  width: 94%;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -694,7 +694,8 @@ h1 {
 .page-subtitle {
   font-family: "Urbanist", sans-serif;
   font-size: 1.2rem;
-  max-width: 640px;
+  width: 46vw;
+  min-width: 280px;
   margin: 0;
   color: #ffffff;
   opacity: 0;
@@ -820,9 +821,8 @@ h1 {
 }
 
 .event-inner {
-  max-width: 1400px;
-  margin-left: auto;
-  margin-right: 2.75rem;
+  width: 92%;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(2rem, 5vw, 4rem);
@@ -920,7 +920,8 @@ h1 {
 }
 
 .event-text-only .event-content {
-  max-width: 700px;
+  width: 46vw;
+  min-width: 280px;
   margin: 0 auto;
   text-align: center;
 }
@@ -1068,7 +1069,7 @@ h1 {
 }
 
 .partner-group {
-  max-width: 1400px;
+  width: 92%;
   margin: 0 auto;
 }
 
@@ -1941,7 +1942,7 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: 1100px;
+  width: 90%;
   margin: 0 auto;
 }
 
@@ -2260,7 +2261,7 @@ h1 {
 }
 
 .eligibility-inner {
-  max-width: 900px;
+  width: 70%;
   margin: 0 auto;
 }
 

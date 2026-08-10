@@ -75,6 +75,8 @@ x***maybe add fade from all hero images -> content
 √***fix lack of local page navigation while maintaining clean urls, edit readme
 
 √***setup old website domain and add to readme
+√***fix wide monitor margin issue
+
 
 ***setup resend DKIM by calling homestead (also confirm oldkyfoundation domain verification)
 ***test custom sender display name
