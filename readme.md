@@ -53,7 +53,7 @@ Kai-Yue-Foundation/
 - Canonical Domain: [www.kaiyuefoundation.org]
 - Apex Domain: [kaiyuefoundation.org] (redirects to the canonical domain above)
 - Redirecting Domains: [kyfoundation.org], [www.kyfoundation.org] (also redirects to the canonical domain above)
-- Legacy/Archive Domain: oldkyfoundation.org (preserves old homestead hosted site for posterity)
+- Legacy/Archive Domain: [www.oldkyfoundation.org] OR [oldkyfoundation.org] should both work (preserves old homestead hosted site for posterity)
 
 DOMAIN REGISTRAR INFO: 
 Managed through Homestead + Network Solutions

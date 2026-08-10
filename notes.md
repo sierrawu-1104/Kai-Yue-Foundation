@@ -72,8 +72,10 @@ x***maybe add fade from all hero images -> content
 √***change contact from email in resend
 
 √***add site logo for browser tab and search engine results
-***setup old website domain and add to readme
+√***fix lack of local page navigation while maintaining clean urls, edit readme
 
-***setup DKIM by calling homestead (also confirm oldkyfoundation domain verification)
+√***setup old website domain and add to readme
+
+***setup resend DKIM by calling homestead (also confirm oldkyfoundation domain verification)
 ***test custom sender display name
 
