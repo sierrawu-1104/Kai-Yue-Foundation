@@ -85,5 +85,5 @@ x***maybe add fade from all hero images -> content
 √***setup resend DKIM by calling homestead (also confirm oldkyfoundation domain verification), cancel subscription
 √***test custom sender display name
 
-√***fix auto zoom on wide monitor
+x***fix auto zoom on wide monitor
 √***move underline closer to white nav bar text
