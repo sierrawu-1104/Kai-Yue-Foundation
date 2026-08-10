@@ -55,7 +55,24 @@ module.exports = {
 
       if (!name || !email || !message) {
         return Response.json(
-          { success: false, message: "Missing required fields" },
+          { success: false, code: "missing_fields", message: "Missing required fields" },
+          { status: 400, headers: headers }
+        );
+      }
+
+      /* The form input's type="email" only checks for an "@" with a
+         character on each side - it happily lets through something like
+         "name@host" with no TLD. Resend's `reply_to` validation is
+         stricter (it wants a real name@domain.tld shape) and rejects that
+         at send time with a 422, which - since it comes back through
+         result.error below rather than as a thrown exception - would
+         otherwise be indistinguishable from any other send failure.
+         Checking the same shape here catches it before spending a Resend
+         call on a submission from a form that's already misconfigured. */
+      var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!EMAIL_RE.test(email)) {
+        return Response.json(
+          { success: false, code: "invalid_email", message: "Please enter a valid email address" },
           { status: 400, headers: headers }
         );
       }
@@ -96,7 +113,7 @@ module.exports = {
       if (result.error) {
         console.error(result.error);
         return Response.json(
-          { success: false, message: "Failed to send" },
+          { success: false, code: "send_failed", message: "Failed to send" },
           { status: 500, headers: headers }
         );
       }
@@ -107,7 +124,7 @@ module.exports = {
     } catch (err) {
       console.error(err);
       return Response.json(
-        { success: false, message: "Failed to send" },
+        { success: false, code: "send_failed", message: "Failed to send" },
         { status: 500, headers: headers }
       );
     }

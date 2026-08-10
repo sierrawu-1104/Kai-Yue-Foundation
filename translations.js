@@ -292,6 +292,10 @@ window.KY_I18N = {
       en: "That PDF is too large (max 4MB). Please attach a smaller file.",
       zh: "此PDF档案过大（上限为4MB），请附上较小的档案。",
     },
+    statusInvalidEmail: {
+      en: "Please enter a valid email address (e.g. name@example.com).",
+      zh: "请输入有效的电子邮件地址（例如：name@example.com）。",
+    },
     infoIntro: {
       en: "The Kai Yue Foundation supports music, education, and cultural exchange throughout our community.",
       zh: "恺悦基金会致力于支持整个社区的音乐、教育与文化交流。",

@@ -40,7 +40,7 @@ Kai-Yue-Foundation/
 
 ## Features
 
-- Smooth page transitions with animated logo loader
+- Smooth page transitions with animated logo fake-loader
 - Bilingual (English / 中文) with a persistent language toggle
 - Interactive gallery: scroll-linked zoom on desktop, timed auto-play on mobile, plus swipe-able theater view and full-photo carousel
 - Responsive design that works on all devices
@@ -60,7 +60,7 @@ Managed through Homestead + Network Solutions
 - kaiyuefoundation.org — backend registrar: Tucows Domains Inc. 
 - kyfoundation.org — backend registrar: eNom, LLC
 - oldkyfoundation.org — backend registrar: Tucows Domains Inc. 
-Account contact: Zheng Huang (huang@kyfoundation.org)
+- Account contact: Zheng Huang (huang@kyfoundation.org)
 
 **Known issue (Aug 2026): kaiyuefoundation.org was in `clientHold` status, which fully blocked DNS propagation and resolution. Root cause was a&mdash;now no longer accessible&mdash;original registrant contact email (Susan.kane-dowling@vivace-investment.com) failing to verify domain, not billing or a DNS misconfiguration. For future reference, check status on Whois.com
 

@@ -1307,7 +1307,14 @@
       .then(function (res) {
         return res.json().then(function (result) {
           if (!res.ok || !result.success) {
-            throw new Error(result.message || "submission failed");
+            /* code is the server's machine-readable reason (e.g.
+               "invalid_email") - result.message is English-only prose meant
+               for the Vercel log, not something to show a Chinese-mode
+               visitor, so the catch below maps code to a translated string
+               instead of displaying message directly. */
+            var err = new Error(result.message || "submission failed");
+            err.code = result.code;
+            throw err;
           }
           form.reset();
           fileLabel.textContent = defaultFileText;
@@ -1315,14 +1322,18 @@
           setStatus(t("contact.statusSuccess", "Thanks! Your message has been sent."), "success");
         });
       })
-      .catch(function () {
-        setStatus(
-          t(
-            "contact.statusError",
-            "Something went wrong. Please email us directly at huang@kyfoundation.org."
-          ),
-          "error"
-        );
+      .catch(function (err) {
+        var message =
+          err && err.code === "invalid_email"
+            ? t(
+                "contact.statusInvalidEmail",
+                "Please enter a valid email address (e.g. name@example.com)."
+              )
+            : t(
+                "contact.statusError",
+                "Something went wrong. Please email us directly at huang@kyfoundation.org."
+              );
+        setStatus(message, "error");
       })
       .finally(function () {
         submitBtn.disabled = false;
