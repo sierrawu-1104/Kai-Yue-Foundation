@@ -80,10 +80,10 @@ x***maybe add fade from all hero images -> content
 √***fix consistent education section staggering, and wider mobile view prose text width
 √***update journey of love photos, add poem pdf, embed youtube video
 √***add simple persistent underline for current page in nav bar along with hover animation
-***fix auto zoom on wide monitor
-***move underline closer to white nav bar text
 
 √***clone and redeploy old site on vercel, update readme
 √***setup resend DKIM by calling homestead (also confirm oldkyfoundation domain verification), cancel subscription
 √***test custom sender display name
 
+***fix auto zoom on wide monitor
+***move underline closer to white nav bar text
