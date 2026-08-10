@@ -76,6 +76,9 @@ x***maybe add fade from all hero images -> content
 
 √***setup old website domain and add to readme
 √***fix wide monitor margin issue
+√***fix auto zoom on wide monitor
+
+√***fix consistent education section staggering, and wider mobile view prose text width
 
 ***clone and redeploy old site on vercel
 ***update journey of love photos, add poem pdf

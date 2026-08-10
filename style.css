@@ -703,6 +703,16 @@ h1 {
   animation-delay: 0.6s;
 }
 
+/* The 46vw fluid width (added for wide-monitor scaling) shrinks to its
+   280px floor on phones, which reads as more side margin than before -
+   mobile just wants this filling the hero's own padded width instead. */
+@media (max-width: 800px) {
+  .page-subtitle {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
 @keyframes eventsHeroFadeIn {
   from {
     opacity: 0;
@@ -1181,7 +1191,13 @@ h1 {
 }
 
 .partner-grid-staggered {
-  --stagger-gap-x: clamp(2rem, 13vw, 15rem);
+  /* % (not vw) so this stays proportional to the grid's own fluid width -
+     it used to be safe to scale off the viewport because the grid was
+     pinned to a fixed max-width, but now that the grid itself scales with
+     the viewport too, two independently-scaling values drifted apart at
+     in-between (laptop) widths, only lining back up once the vw value hit
+     its clamp ceiling on very wide screens. */
+  --stagger-gap-x: clamp(2rem, 14%, 15rem);
   justify-content: flex-start;
   gap: var(--partner-gap) var(--stagger-gap-x);
 }
@@ -2263,6 +2279,17 @@ h1 {
 .eligibility-inner {
   width: 70%;
   margin: 0 auto;
+}
+
+/* Same reasoning as .page-subtitle above: the fluid desktop width reads as
+   too much side margin on a phone, so mobile gets the section's own padded
+   width instead - this covers the eligibility list, Donation Application
+   heading, embedded PDF, and Download Application button together, since
+   they're all children of this one container. */
+@media (max-width: 800px) {
+  .eligibility-inner {
+    width: 100%;
+  }
 }
 
 .eligibility-heading {
