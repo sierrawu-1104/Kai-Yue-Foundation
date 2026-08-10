@@ -53,12 +53,13 @@ Kai-Yue-Foundation/
 - Canonical Domain: [www.kaiyuefoundation.org]
 - Apex Domain: [kaiyuefoundation.org] (redirects to the canonical domain above)
 - Redirecting Domains: [kyfoundation.org], [www.kyfoundation.org] (also redirects to the canonical domain above)
-- Legacy/Archive Domain: [www.oldkyfoundation.org] OR [oldkyfoundation.org] should both work (preserves old homestead hosted site for posterity)
+- Legacy/Archive Domain: [www.oldkyfoundation.org] OR [oldkyfoundation.org] should both work (preserves final state of homestead hosted site for posterity)
 
 DOMAIN REGISTRAR INFO: 
 Managed through Homestead + Network Solutions
 - kaiyuefoundation.org — backend registrar: Tucows Domains Inc. 
 - kyfoundation.org — backend registrar: eNom, LLC
+- oldkyfoundation.org — backend registrar: Tucows Domains Inc. 
 Account contact: Zheng Huang (huang@kyfoundation.org)
 
 **Known issue (Aug 2026): kaiyuefoundation.org was in `clientHold` status, which fully blocked DNS propagation and resolution. Root cause was a&mdash;now no longer accessible&mdash;original registrant contact email (Susan.kane-dowling@vivace-investment.com) failing to verify domain, not billing or a DNS misconfiguration. For future reference, check status on Whois.com
@@ -93,7 +94,7 @@ Submissions are handled by a custom Vercel serverless function (`api/contact.js`
 
 ## Viewing Mediums
 
-- Desktop - Site designed for desktop viewing, most natural and intuitive UI/UX
+- Desktop/Laptop/Wide Monitor - What site was designed for, most natural and intuitive UI/UX; images and content scale + center based on viewport width.
 - Mobile - Mobile view optimized to the best of my ability; nav bar contained in hamburger menu, events page changes to alternating background colors, gallery page shows 3 columns of photos instead of 4 on carousel view, gallery zoom animation based on elapsed time instead of scroll&mdash;the default for desktop view
 - Ipad - Mixed: layout breakpoints (nav, carousel columns, events colors) are width-based, so a wide/landscape iPad gets the desktop version of those while a vertical ipad&mdash;depending on width&mdash;may get mobile view. However, touch-detection features (gallery zoom timing, horizontal scroll lock) are determined based off touch/no-hover rather than width, so iPads always get the mobile (elapsed-time) gallery zoom regardless of screen size.
 
@@ -104,6 +105,13 @@ Submissions are handled by a custom Vercel serverless function (`api/contact.js`
 ## FUTURE IMPROVEMENTS
 
 - Switch to newer and better-maintained domain registrar (like NameCheap or PorkBun): Currently the domain registrar is still through the soon-to-be obsolete Homestead platform; this has caused issues (like setting up DKIM (TXT) and DMARC (TXT) DNS records in resend to verify emails and prevent them from landing in spam) because Homestead doesn't allow underscores in DNS names&mdash;seems to be a known limitation of older DNS panels.
+
+## ARCHIVE
+
+- March - August 2026: [www.oldkyfoundation.org]
+- 2017-2025: [https://web.archive.org/web/20250125083112/http://www.kyfoundation.org/]
+- 2015-2016: [https://web.archive.org/web/20161022135235/http://www.kyfoundation.org/]
+- 2013-2014: [https://web.archive.org/web/20130928231641/http://www.kyfoundation.org/]
 
 ---
 
