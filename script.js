@@ -503,6 +503,15 @@
   measureAnchor();
   measureFixedBgFallback();
 
+  /* Which zoom DRIVER plays (auto-timed vs scroll-linked) must depend only
+     on touch capability, never on viewport width - a desktop browser window
+     that happens to be narrow (or a wide monitor running at high OS display
+     scaling, which shrinks the CSS viewport well below its physical size)
+     should still get scroll-driven zoom. useFixedBgFallback intentionally
+     also fires on narrow desktop windows (see its own comment above), so it
+     can't be reused here despite covering the same touch check. */
+  var useMobileZoomDriver = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+
   var revealed = false;
 
   /* Shared by both drivers below - the only difference between them is
@@ -536,7 +545,7 @@
     }
   }
 
-  if (useFixedBgFallback) {
+  if (useMobileZoomDriver) {
     /* Mobile: tying the zoom to scroll meant recomputing font-size and the
        background-position fallback above on every scroll tick, which is
        what was laggy - and since that fallback can only ever be exactly

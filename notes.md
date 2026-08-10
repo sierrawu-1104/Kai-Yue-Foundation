@@ -77,7 +77,8 @@ x***maybe add fade from all hero images -> content
 √***setup old website domain and add to readme
 √***fix wide monitor margin issue
 
-
+***clone and redeploy old site on vercel
+***update journey of love photos, add poem pdf
 ***setup resend DKIM by calling homestead (also confirm oldkyfoundation domain verification)
 ***test custom sender display name
 
