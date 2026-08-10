@@ -53,7 +53,7 @@ Kai-Yue-Foundation/
 - Canonical Domain: [www.kaiyuefoundation.org]
 - Apex Domain: [kaiyuefoundation.org] (redirects to the canonical domain above)
 - Redirecting Domains: [kyfoundation.org], [www.kyfoundation.org] (also redirects to the canonical domain above)
-- Legacy/Archive Domain: [www.oldkyfoundation.org] OR [oldkyfoundation.org] should both work (preserves final state of homestead hosted site for posterity)
+- Legacy/Archive Domain: [www.oldkyfoundation.org] OR [oldkyfoundation.org] (preserves final state of homestead hosted site for posterity)
 
 DOMAIN REGISTRAR INFO: 
 Managed through Homestead + Network Solutions
@@ -108,7 +108,7 @@ Submissions are handled by a custom Vercel serverless function (`api/contact.js`
 
 ## ARCHIVE
 
-- March - August 2026: [www.oldkyfoundation.org]
+- March - August 2026: [https://www.oldkyfoundation.org] (also hosted by vercel)
 - 2017-2025: [https://web.archive.org/web/20250125083112/http://www.kyfoundation.org/]
 - 2015-2016: [https://web.archive.org/web/20161022135235/http://www.kyfoundation.org/]
 - 2013-2014: [https://web.archive.org/web/20130928231641/http://www.kyfoundation.org/]

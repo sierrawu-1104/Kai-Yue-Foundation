@@ -83,7 +83,7 @@ x***maybe add fade from all hero images -> content
 ***fix auto zoom on wide monitor
 ***move underline closer to white nav bar text
 
-***clone and redeploy old site on vercel, update readme
-***setup resend DKIM by calling homestead (also confirm oldkyfoundation domain verification), cancel subscription
-***test custom sender display name
+√***clone and redeploy old site on vercel, update readme
+√***setup resend DKIM by calling homestead (also confirm oldkyfoundation domain verification), cancel subscription
+√***test custom sender display name
 
