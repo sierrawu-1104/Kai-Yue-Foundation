@@ -271,9 +271,16 @@ h1 {
 .nav-links a::after {
   content: "";
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -0.3em;
+  /* letter-spacing: 0.1em above adds a trailing gap after the LAST glyph
+     that the element's box still counts as its own width, so left:0/right:0
+     hangs the bar that far past the text on the right only - which reads as
+     the whole underline sitting off-centre, clipped at the "E" of Events.
+     Pulling the right edge in by that same 0.1em drops the phantom gap and
+     re-centres the bar over the glyphs themselves; the small negative left
+     is bleed so round letterforms don't look under-covered at the start. */
+  left: -0.03em;
+  right: 0.1em;
+  bottom: -0.12em;
   height: 2px;
   background: currentColor;
   transform: scaleX(0);
@@ -1470,9 +1477,22 @@ h1 {
 /* Mobile plays the zoom as a fixed-duration animation on load instead of
    tying it to scroll distance (see script.js), so there's no reason to
    reserve extra scroll height for it here - that would just be dead space
-   the user scrolls through before reaching the carousel. Matches the
-   breakpoint script.js uses to pick the same code path. */
-@media (max-width: 800px), (hover: none) and (pointer: coarse) {
+   the user scrolls through before reaching the carousel.
+
+   This condition MUST stay identical to IS_TOUCH_ONLY in script.js: the two
+   halves are load-bearing on each other. Scroll-driven zoom derives its
+   progress from (sticky height - viewport height), so if this collapses the
+   sticky to one screen while the JS still picks the scroll driver, that
+   distance is 0 and the zoom never plays at all.
+
+   any-hover (not hover/pointer) is what makes that agreement correct on a
+   touchscreen laptop: those report a coarse PRIMARY pointer while still
+   having a mouse, which the old (hover:none) and (pointer:coarse) test read
+   as a phone. Dropping the old max-width clause is deliberate for the same
+   reason - a narrow desktop window has a mouse, so it gets the scroll
+   driver, and collapsing its sticky height here would have zeroed that same
+   distance. */
+@media (any-hover: none) {
   .gallery-hero-sticky {
     height: 100vh;
     height: 100svh;

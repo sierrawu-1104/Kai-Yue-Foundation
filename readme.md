@@ -1,6 +1,6 @@
 # Kai Yue Foundation Website
 
-A much more modern, visually aesthetic, engaging, and logically streamlined update for the Kai Yue Foundation website; the original site was hosted by the clunky and antiquated Homestead + Network Solutions platform. Coded by Andy Wu (with much assistance from claude code).
+A much more modern, visually aesthetic, engaging, and logically streamlined update for the Kai Yue Foundation website; the original site was hosted by the clunky and antiquated Homestead + Network Solutions platform. Coded by Andy Wu (with assistance from claude code).
 
 ## Pages
 
@@ -53,7 +53,7 @@ Kai-Yue-Foundation/
 - Canonical Domain: [www.kaiyuefoundation.org]
 - Apex Domain: [kaiyuefoundation.org] (redirects to the canonical domain above)
 - Redirecting Domains: [kyfoundation.org], [www.kyfoundation.org] (also redirects to the canonical domain above)
-- Legacy/Archive Domain: [www.oldkyfoundation.org] OR [oldkyfoundation.org] (preserves final state of homestead hosted site for posterity)
+- Legacy/Archive Domain: [www.oldkyfoundation.org] OR [oldkyfoundation.org] (preserves final state of the homestead hosted site for posterity)
 
 DOMAIN REGISTRAR INFO: 
 Managed through Homestead + Network Solutions
@@ -95,7 +95,7 @@ Submissions are handled by a custom Vercel serverless function (`api/contact.js`
 ## Viewing Mediums
 
 - Desktop/Laptop/Wide Monitor - What site was designed for, most natural and intuitive UI/UX; images and content scale + center based on viewport width.
-- Mobile - Mobile view optimized to the best of my ability; nav bar contained in hamburger menu, events page changes to alternating background colors, gallery page shows 3 columns of photos instead of 4 on carousel view, gallery zoom animation based on elapsed time instead of scroll&mdash;the default for desktop view
+- Mobile - Mobile view optimized to the best of my ability; nav bar contained in hamburger menu, events page changes to alternating background colors, gallery page shows 3 columns of photos instead of 4 on carousel view, gallery zoom animation based on elapsed time instead of scroll&mdash;the default for desktop view.
 - Ipad - Mixed: layout breakpoints (nav, carousel columns, events colors) are width-based, so a wide/landscape iPad gets the desktop version of those while a vertical ipad&mdash;depending on width&mdash;may get mobile view. However, touch-detection features (gallery zoom timing, horizontal scroll lock) are determined based off touch/no-hover rather than width, so iPads always get the mobile (elapsed-time) gallery zoom regardless of screen size.
 
 ## Notes

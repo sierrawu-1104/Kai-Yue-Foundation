@@ -435,6 +435,23 @@
   var anchorOffsetYEm;
   var maxFontSize;
 
+  /* The question that actually matters here is "does this device have a
+     mouse", not "does it have a touchscreen" - a touchscreen laptop has
+     both, and should behave exactly like any other desktop.
+
+     any-hover asks whether ANY attached input can hover, so it stays true on
+     a touchscreen laptop even when the OS reports the touchscreen as the
+     PRIMARY pointer - which is the case the old (hover:none) and
+     (pointer:coarse) test got wrong, handing a 27" monitor the phone code
+     path. Only a device with no hovering input at all (phone, tablet with no
+     mouse) resolves to true here.
+
+     Kept in sync with the @media (any-hover: none) block in style.css that
+     collapses .gallery-hero-sticky - see the long note there for why the two
+     must agree or the scroll-driven zoom silently gets zero distance to
+     work with. */
+  var IS_TOUCH_ONLY = !window.matchMedia("(any-hover: hover)").matches;
+
   /* background-attachment: fixed (set in CSS) is what makes the image look
      "pinned" behind the zooming text instead of scaling with it - but
      mobile browsers (Safari in particular) don't reliably support fixed
@@ -458,10 +475,12 @@
        mobile browser the native background-attachment: fixed path this
        exists to avoid. The width test stays as the first clause because
        desktop emulation of a small viewport reports hover/pointer as
-       fine, and resizing a desktop window should still exercise this. */
+       fine, and resizing a desktop window should still exercise this.
+       Unlike the driver choice above, this one is free to keep the width
+       clause: it only swaps how the background is positioned, and both
+       paths render correctly under either driver. */
     useFixedBgFallback =
-      window.matchMedia("(max-width: 800px)").matches ||
-      window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+      window.matchMedia("(max-width: 800px)").matches || IS_TOUCH_ONLY;
     if (!useFixedBgFallback) return;
 
     var vw = window.innerWidth;
@@ -526,14 +545,14 @@
   measureAnchor();
   measureFixedBgFallback();
 
-  /* Which zoom DRIVER plays (auto-timed vs scroll-linked) must depend only
-     on touch capability, never on viewport width - a desktop browser window
-     that happens to be narrow (or a wide monitor running at high OS display
-     scaling, which shrinks the CSS viewport well below its physical size)
-     should still get scroll-driven zoom. useFixedBgFallback intentionally
-     also fires on narrow desktop windows (see its own comment above), so it
-     can't be reused here despite covering the same touch check. */
-  var useMobileZoomDriver = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+  /* Which zoom DRIVER plays (auto-timed vs scroll-linked) depends only on
+     whether the device has a mouse, never on viewport width - a desktop
+     browser window that happens to be narrow (or a wide monitor running at
+     high OS display scaling, which shrinks the CSS viewport well below its
+     physical size) should still get scroll-driven zoom. useFixedBgFallback
+     intentionally also fires on narrow desktop windows (see its own comment
+     above), so it can't be reused here despite sharing IS_TOUCH_ONLY. */
+  var useMobileZoomDriver = IS_TOUCH_ONLY;
 
   var revealed = false;
 
