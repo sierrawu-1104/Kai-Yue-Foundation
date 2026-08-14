@@ -69,7 +69,7 @@ Managed through Homestead + Network Solutions
 - HTML5, CSS3, Vanilla JavaScript
 - Google Fonts (Montserrat, Source Code Pro, Junicode, Urbanist, Noto Sans SC)
 - Static frontend – no build step or frontend dependencies; one Vercel serverless function (`api/contact.js`) handles the contact form, using the `resend` npm package
-- !! RELEVANT SERVICES: GitHub, Vercel, RESEND, Homestead + Network Solutions
+- !! RELEVANT SERVICES: GitHub (wubiz1104@gmail.com), Vercel (wubiz1104@gmail.com), RESEND (huang@kyfoundation.org), Homestead + Network Solutions 
 
 ## Contact Form
 
